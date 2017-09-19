@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-#pragma warning(disable: 4996)
+//#pragma warning(disable: 4996)
 int main()
 {
 	int age;
@@ -8,13 +8,13 @@ int main()
 	char name[100];
 	char bloodGroup[3];
 	printf("what your name?");
-	scanf("%s", &name);
+	scanf_s("%s", &name,100);
 	printf("what your age?");
-	scanf("%d", &age);
+	scanf_s("%d", &age);
 	printf("what your height?");
-	scanf("%f", &height);
+	scanf_s("%f", &height);
 	printf("what your blood group?");
-	scanf("%s", &bloodGroup);
+	scanf_s("%s", &bloodGroup,3);
 	age += 10;
 	height -= 0.5f;
 	printf("after 10year....\n");

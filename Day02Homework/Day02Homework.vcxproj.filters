@@ -36,5 +36,11 @@
     <ClCompile Include="84p5.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="homework01.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="homework02.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
