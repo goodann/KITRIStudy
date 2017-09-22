@@ -18,7 +18,7 @@ int main() {
 			}
 		}
 	}
-	printf("%d%d%d\n", answer[0], answer[1], answer[2]);
+	//printf("%d%d%d\n", answer[0], answer[1], answer[2]);
 	while (1) {
 		for (i = 0; i < 3; i++) {
 			result[i] = 0;
