@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{2d3ddc1f-82d3-41c2-b725-7d3b6a8827db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ETC">
+      <UniqueIdentifier>{9511e9d7-e827-424d-a6d1-c3476e87a5c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{ddcb8c2f-b664-4d19-b352-3ebceff80b48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Property">
+      <UniqueIdentifier>{d387b6e5-9859-41e2-94c1-4e53f33ce68e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{14a3859d-4d61-4aaf-a691-ae0fcf35fd09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Weapon">
+      <UniqueIdentifier>{f221edc2-e1d6-42e5-807f-dac58b45192d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Enemy">
+      <UniqueIdentifier>{c812987b-358b-4429-9fff-fb13f7c3e2e7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="IncludeAPI.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonHeader.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SingletonGameManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="SingletonWindowManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="SingletonSpriteManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="SingletonFrameManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="MyTimer.h">
+      <Filter>ETC</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Position.h">
+      <Filter>Objects\Property</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Objects\Property</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Objects\Property</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="StartScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Objects\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultPlayersWeapon.h">
+      <Filter>Objects\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultMovingAI.h">
+      <Filter>Objects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="MovingAI.h">
+      <Filter>Objects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultEnemysWeapon.h">
+      <Filter>Objects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Objects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="SingletonEnemyManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="WinMain.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MyTimer.cpp">
+      <Filter>ETC</Filter>
+    </ClCompile>
+    <ClCompile Include="SingletonFrameManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="SingletonGameManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="SingletonWindowManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="SingletonSpriteManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Objects\Property</Filter>
+    </ClCompile>
+    <ClCompile Include="Position.cpp">
+      <Filter>Objects\Property</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Objects\Property</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="StartScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Objects\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultPlayersWeapon.cpp">
+      <Filter>Objects\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultMovingAI.cpp">
+      <Filter>Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="MovingAI.cpp">
+      <Filter>Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultEnemysWeapon.cpp">
+      <Filter>Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="SingletonEnemyManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+</Project>
