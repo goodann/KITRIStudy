@@ -14,10 +14,9 @@ Sprite * SingletonSpriteManager::GetSprite(std::wstring _name, DWORD color)
 	{
 		return m_mapImages[_name];
 	}
-
+	Sprite* pImage = nullptr;
 	// 로드처음
-	Sprite* pImage = new Sprite;
-
+	pImage = new Sprite;
 	pImage->LoadSprite(m_ScreenDC, _name.c_str(), color);
 
 	return (m_mapImages[_name] = pImage);

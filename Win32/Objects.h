@@ -14,6 +14,7 @@
 #include "Position.h"
 
 #include "GameObject.h"
+#include "AnimatedGameObject.h"
 #include "Map.h"
 #include "Bullet.h"
 
@@ -29,5 +30,5 @@
 
 #include "Enemy.h"
 #include "Player.h"
-
+#include "Collider.h"
 #endif // ! __OBJECTS_H__

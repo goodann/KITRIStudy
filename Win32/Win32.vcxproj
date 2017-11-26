@@ -135,8 +135,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AnimatedGameObject.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="CommonHeader.h" />
     <ClInclude Include="DefaultEnemysWeapon.h" />
     <ClInclude Include="DefaultMovingAI.h" />
@@ -157,6 +159,7 @@
     <ClInclude Include="Position.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SingletonGameManager.h" />
+    <ClInclude Include="SingletonPyhisicsManager.h" />
     <ClInclude Include="SingletonWindowManager.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SingletonSpriteManager.h" />
@@ -165,8 +168,10 @@
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimatedGameObject.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="DefaultEnemysWeapon.cpp" />
     <ClCompile Include="DefaultMovingAI.cpp" />
     <ClCompile Include="DefaultPlayersWeapon.cpp" />
@@ -182,6 +187,7 @@
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SingletonGameManager.cpp" />
+    <ClCompile Include="SingletonPyhisicsManager.cpp" />
     <ClCompile Include="SingletonWindowManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SingletonSpriteManager.cpp" />

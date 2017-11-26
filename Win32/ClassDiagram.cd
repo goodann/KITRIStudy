@@ -1,2 +1,172 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SingletonEnemyManager" Collapsed="true">
+    <Position X="18.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAABAAAAAAAAAAAAAhAAAAAAAAAiAIAACACAAEAA=</HashCode>
+      <FileName>SingletonEnemyManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SingletonFrameManager" Collapsed="true">
+    <Position X="20.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAACBAAAAAAAAAAAABAAAAAIBAkAAABACAAAAAAA=</HashCode>
+      <FileName>SingletonFrameManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SingletonGameManager" Collapsed="true">
+    <Position X="16.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQAAAAIABAAAgAAAAAABEAAQAAAAgAAABACEBAAAAA=</HashCode>
+      <FileName>SingletonGameManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SingletonWindowManager" Collapsed="true">
+    <Position X="20.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAIACCAAAAAAAAEBAJAAAAAAACAQAAAQEAAAAA=</HashCode>
+      <FileName>SingletonWindowManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SingletonSpriteManager" Collapsed="true">
+    <Position X="18.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAEAAAAAgAAIgAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SingletonSpriteManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="myTimer" Collapsed="true">
+    <Position X="16.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAQAAAyAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>MyTimer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bullet" Collapsed="true">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAEEAAAAAAAQAAA=</HashCode>
+      <FileName>Bullet.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Character" Collapsed="true">
+    <Position X="10.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAIAAAAAAAAAACAAAAAAAAIAAAAAAAAAAAALAA=</HashCode>
+      <FileName>Character.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Map" Collapsed="true">
+    <Position X="14" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Map.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player" Collapsed="true">
+    <Position X="9.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAARAAEBA=</HashCode>
+      <FileName>Player.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameObject" Collapsed="true">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQACAAAAACAAAAgAAAAAAAxAABAAgAABBACABIhQAA=</HashCode>
+      <FileName>GameObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sprite" Collapsed="true">
+    <Position X="16.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAogAAAAAAAIAEAAAAQAAQAAAAAAoAAAI=</HashCode>
+      <FileName>Sprite.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DefaultPlayersWeapon" Collapsed="true">
+    <Position X="12" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAACAAAAAAAAA=</HashCode>
+      <FileName>DefaultPlayersWeapon.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Weapon" Collapsed="true">
+    <Position X="13.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAEAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Weapon.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DefaultEnemysWeapon" Collapsed="true">
+    <Position X="14.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAAAAEAAAAAAAAAACAAAA=</HashCode>
+      <FileName>DefaultEnemysWeapon.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DefaultMovingAI" Collapsed="true">
+    <Position X="7" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAABAA=</HashCode>
+      <FileName>DefaultMovingAI.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Enemy" Collapsed="true">
+    <Position X="11.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQAAgAAAAAAAgAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Enemy.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MovingAI" Collapsed="true">
+    <Position X="7" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARAAAIAAAAAAAAAAAAAABAAAAAAAwAAAAACAAAAAAA=</HashCode>
+      <FileName>MovingAI.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameScene" Collapsed="true">
+    <Position X="7" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQAAAAAAAAAAAAAAAAABAAAAIAAAgAAgBACABAAgAA=</HashCode>
+      <FileName>GameScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scene" Collapsed="true">
+    <Position X="8.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAIAABAAAgAAgAAAAgAAQAAAAgAAABACABEAAAA=</HashCode>
+      <FileName>Scene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StartScene" Collapsed="true">
+    <Position X="9.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAACAAAgAAAABAAAAAAAAgAAAAAAAAABACABAACAQ=</HashCode>
+      <FileName>StartScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Position" Collapsed="true">
+    <Position X="16.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAABQgQAAAAAgQAAAJAAAAAABgAAIAgAA=</HashCode>
+      <FileName>Position.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Vector2" Collapsed="true">
+    <Position X="18.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAABAAAAEAAAAQAAAAAAAAAAAABgAAAAAAA=</HashCode>
+      <FileName>Vector2.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="SCENETYPE" Collapsed="true">
+    <Position X="16.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEABAAAAAABAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CommonHeader.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>

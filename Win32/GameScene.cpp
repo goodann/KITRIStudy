@@ -28,7 +28,7 @@ GameObject * GameScene::CreateObject(std::wstring _name, std::wstring _classname
 		_pObj = new Player;
 		_pObj->Init(_name, _x, _y, color);
 	}
-	/*
+	
 	else if (_classname == _T("Enemy"))
 	{
 		_pObj = new Enemy;
@@ -47,7 +47,7 @@ GameObject * GameScene::CreateObject(std::wstring _name, std::wstring _classname
 		swprintf(temp, _T("CreateObjectFail : %s"), _classname.c_str());
 		MessageBox(NULL, temp, _T("fail"), MB_OK);
 	}
-	*/
+	
 	if (_pObj)
 		m_listObjects.push_back(_pObj);
 	return _pObj;
@@ -67,10 +67,11 @@ void GameScene::ObjectClear(void)
 
 		if (_pObj->Life() == false)
 		{
+			_pObj->OnDelete();
 			ENEMYMGR->DeleteEnemy(_pObj);
 
 
-			//COLLMGR->DeleteCollider((baseTargetObject*)_pObj);
+			PHYSICMGR->DeleteCollider(_pObj);
 
 			delete _pObj;
 			itor = m_listObjects.erase(itor);
@@ -97,8 +98,8 @@ void GameScene::DebugView(HDC _backDC)
 	swprintf(textBuffer, _T("EnemyCount : %d"), ENEMYMGR->GetEnemyCount());
 	TextOut(_backDC, _x, _y += 25, textBuffer, lstrlen(textBuffer));
 
-	//sprintf(textBuffer, "ColliderCount : %d", COLLMGR->GetCollisionCount());
-	//TextOut(_backDC, _x, _y += 25, textBuffer, strlen(textBuffer));
+	swprintf(textBuffer, _T("ColliderCount : %d"), PHYSICMGR->GetCollisionCount());
+	TextOut(_backDC, _x, _y += 25, textBuffer, lstrlen(textBuffer));
 }
 
 void GameScene::Init(HDC hdc)
@@ -122,7 +123,7 @@ void GameScene::Update(void)
 	for each(auto p in m_listObjects)
 		p->Update();
 
-	//COLLMGR->Update();
+	PHYSICMGR->Update();
 
 	ObjectClear();
 }

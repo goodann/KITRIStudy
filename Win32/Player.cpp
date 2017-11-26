@@ -65,7 +65,7 @@ void Player::Shot()
 void Player::Fire()
 {
 	if (m_ShotTimer.TimeCheck()) {
-		m_Weapon->Fire(this);
+ 		m_Weapon->Fire(this);
 	}
 }
 
@@ -75,8 +75,9 @@ Player::Player()
 	m_Weapon = new DefaultPlayersWeapon;
 	m_ShotTimer.SetTimer(0.1f);
 	const type_info &rtype_info = typeid((*this));
-
+	m_HP = 100;
 	m_ClassName = Multi2Wide(rtype_info.name());
+	m_Tag = _T("Player");
 }
 
 

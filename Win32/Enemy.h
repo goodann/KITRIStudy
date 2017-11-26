@@ -10,5 +10,6 @@ public:
 	virtual void Update();
 	Enemy();
 	~Enemy();
+	virtual void OnDelete();
 };
 

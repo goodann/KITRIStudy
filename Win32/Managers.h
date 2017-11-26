@@ -14,6 +14,7 @@
 #define SPRITEMGR SingletonSpriteManager::GetInstance()
 #include "SingletonEnemyManager.h"
 #define ENEMYMGR SingletonEnemyManager::GetInstance()
-
+#include "SingletonPyhisicsManager.h"
+#define PHYSICMGR SingletonPyhisicsManager::GetInstance()
 
 #endif // !__Managers

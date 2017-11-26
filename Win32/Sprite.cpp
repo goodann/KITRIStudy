@@ -4,6 +4,7 @@
 
 Sprite::Sprite()
 {
+	m_Target = nullptr;
 	m_hDC = 0;
 	m_hMemDC = 0;
 	m_size(0, 0);
@@ -80,6 +81,20 @@ void Sprite::RenderSprite(HDC _backDC, int _x, int _y, int _texX, int _texY)
 	}
 }
 
+void Sprite::RenderSprite(HDC _backDC, int _x, int _y, int _w,int _h,int _texX, int _texY)
+{
+	if (m_Color == -1)
+	{
+		BitBlt(_backDC, _x, _y, _w, _h,
+			m_hMemDC, _texX, _texY, SRCCOPY);
+	}
+	else
+	{
+		TransparentBlt(_backDC, _x, _y, _w, _h,
+			m_hMemDC, _texX, _texY, _w, _h, m_Color);
+	}
+}
+
 void Sprite::RenderSprite(HDC _backDC, int _x, int _y, BLENDFUNCTION _blenFunc)
 {
 	AlphaBlend(_backDC, _x, _y, m_size.x, m_size.y,
@@ -102,9 +117,13 @@ void Sprite::RenderSprite(HDC _backDC, Vector2 _pos, int _width)
 	RenderSprite(_backDC, _pos.x, _pos.y,_width);
 }
 
-void Sprite::RenderSprite(HDC _backDC, Vector2 _pos, Vector2 _texSIze)
+void Sprite::RenderSprite(HDC _backDC, Vector2 _pos, Vector2 _texPos)
 {
-	RenderSprite(_backDC, _pos.x, _pos.y, _texSIze.x, _texSIze.y);
+	RenderSprite(_backDC, _pos.x, _pos.y, _texPos.x, _texPos.y);
+}
+void Sprite::RenderSprite(HDC _backDC, Vector2 _pos, Vector2 _texSIze,Vector2 _texPos)
+{
+	RenderSprite(_backDC, _pos.x, _pos.y, _texSIze.x, _texSIze.y,_texPos.x, _texPos.y);
 }
 
 void Sprite::RenderSprite(HDC _backDC, Vector2 _pos, BLENDFUNCTION _blenFunc)

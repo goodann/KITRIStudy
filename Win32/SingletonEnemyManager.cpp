@@ -52,10 +52,11 @@ void SingletonEnemyManager::CreateEnemy(void)
 {
 	int cnt = (int)m_listEnemys.size();
 
-	if (cnt < 1)
+	if (cnt < 10)
 	{
 		int _x = rand() % (WINMGR->GetWidth() - 64);
-		int _y = 50;
+		//int _x = (WINMGR->GetWidth()/2);
+		int _y = -rand() % (40,400);
 
 		Enemy* _pObj = new Enemy;
 		
@@ -95,21 +96,15 @@ void SingletonEnemyManager::CreateEnemy(void)
 		_pObj->SethudBar(pHUD);
 		CreateEnemy2(_pObj, pHUD);
 		*/
-		m_CurrEnemyCnt++;
+		//m_CurrEnemyCnt++;
 
 		// 중복에대한 체크
-		/*
-		while (true)
+		
+		if (PHYSICMGR->RePosCheck(_pObj))
 		{
-			if (COLLMGR->RePosCheck(_pObj))
-			{
-				int _x = rand() % (WINMGR->GetWidth() - 64);
-				_pObj->SetPosX(_x);
-			}
-			else
-				break;
+			_pObj->Life() = false;
 		}
-		*/
+		
 	}
 }
 

@@ -16,6 +16,7 @@
 #include <list>
 #include <string>
 #include <atlconv.h>
+#include<forward_list>
 
 enum SCENETYPE{ST_START,ST_GAME,ST_GAMEOVER,ST_MAX};
 #define SINGLETON_FUNC(mgr) \

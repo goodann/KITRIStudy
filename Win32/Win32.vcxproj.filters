@@ -120,6 +120,15 @@
     <ClInclude Include="SingletonEnemyManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SingletonPyhisicsManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedGameObject.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -193,6 +202,15 @@
     </ClCompile>
     <ClCompile Include="SingletonEnemyManager.cpp">
       <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SingletonPyhisicsManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedGameObject.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
