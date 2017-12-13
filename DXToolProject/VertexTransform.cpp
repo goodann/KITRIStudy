@@ -25,7 +25,7 @@ void VertexTransform::Init(OBJECTINFO _info)
 	else
 	{
 		char tmp[128] = { 0, };
-		sprintf(tmp, "버텍스버퍼 생성실패:%s", _info.strName);
+		sprintf(tmp, "버텍스버퍼 생성실패:%s", _info.strName.c_str());
 		MessageBox(NULL, tmp, "error", MB_OK);
 	}
 	

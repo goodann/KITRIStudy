@@ -12,7 +12,7 @@ protected:
 	
 
 public:
-	void Init();
+	void Init(OBJECTINFO _info);
 	void Update(void);
 	void Render();
 	bool PickingSphereCheck(baseObject* Target, D3DXVECTOR3* pickPos, MouseRay ray);

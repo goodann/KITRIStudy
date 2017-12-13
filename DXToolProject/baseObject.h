@@ -2,7 +2,7 @@
 class CollisonSphere;
 class baseObject:public Pickable
 {
-	GETTER(Pollygon, PollygonType)
+	GETTER(Pollygon, PollygonType);
 public:
 	Transform* GetTransform(void)
 	{
@@ -24,6 +24,7 @@ protected:
 	PROPERTY_FUNC(CollisonSphere*, pColl);
 	PROPERTY_FUNC(float, Speed);
 	PROPERTY_FUNC(bool, bLife);
+	GETTER(string, FIleName);
 
 public:
 	string tag;

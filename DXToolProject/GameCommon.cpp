@@ -1,5 +1,15 @@
 #include "GameCommon.h"
 
+void ZeroInfo(OBJECTINFO * info)
+{
+	ZeroMemory(info, sizeof(*info));
+	info->vPos = VEC3ZERO;
+	info->vScale = VEC3ONE;
+	info->vRot = VEC3ZERO;
+	info->strName.resize(255);
+	info->FileName.resize(255);
+}
+
 float fRandom(float max, float min)
 {
 	int _max = (int)(max * 100);

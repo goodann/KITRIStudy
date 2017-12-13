@@ -5,7 +5,7 @@ SINGLETON_INIT(GameManager)
 void GameManager::Init(void)
 {
 	D3DXMatrixIdentity(&m_mTexTrans);
-	m_vTexPos=D3DXVECTOR3(0,0,0);
+	m_vTexPos = D3DXVECTOR3(0, 0, 0);
 	DEVICE->GetViewport(&m_OrgViewPort);
 	//m_isFPS = false;
 	m_CameraType = 0;
@@ -31,7 +31,7 @@ void GameManager::Init(void)
 	D3DXCreateTextureFromFile(DEVICE, "Snow4.jpg", &m_pSnowTexture[3]);
 	D3DXCreateTextureFromFile(DEVICE, "Snow5.jpg", &m_pSnowTexture[4]);
 	D3DXCreateTextureFromFile(DEVICE, "River.jpg", &m_pRiverTexture);
-	
+
 	m_sky = D3DXCOLOR(0.6f, 0.6f, 0.6f, 0);
 	m_FireOn = false;
 	m_TimeState = 2;
@@ -62,36 +62,36 @@ void GameManager::Init(void)
 	DEVICE->SetLight(0, &Light);
 	DEVICE->LightEnable(0, true);
 	DEVICE->SetRenderState(D3DRS_AMBIENT, D3DXCOLOR(0.2f, 0.2f, 0.2f, 1));
-	
+
 	m_Terrain = new Terrain;
 	m_Terrain->Init();
 	m_Axis.Setup();
-m_Grid.Setup();
+	m_Grid.Setup();
 
 
 
-OBJECTINFO info;
-ZeroMemory(&info, sizeof(info));
-info.Pollygon = PG_FROMXFILE;
-info.vScale = VEC3ONE;
-info.FileName = "Resource/Airplane/airplane 2.x";
-info.vPos = D3DXVECTOR3(0, 10, 0);
+	OBJECTINFO info;
+	ZeroMemory(&info, sizeof(info));
+	info.Pollygon = PG_FROMXFILE;
+	info.vScale = VEC3ONE;
+	info.FileName = "Resource/Airplane/airplane 2.x";
+	info.vPos = D3DXVECTOR3(0, 10, 0);
 
-m_pAirPlane = new AirPlane;
-m_pAirPlane->Init(info);
+	//m_pAirPlane = new AirPlane;
+	//m_pAirPlane->Init(info);
+	//
+	//
+	//m_pCubeObject = new CubeObject;
+	////OBJECTINFO info;
+	//ZeroMemory(&info, sizeof(info));
+	//info.vScale = VEC3ONE;
+	//info.Pollygon = PG_BOX;
+	//info.Color = D3DXCOLOR(1, 1, 1, 1);
+	//m_pCubeObject->Init(info);
 
 
-m_pCubeObject = new CubeObject;
-//OBJECTINFO info;
-ZeroMemory(&info, sizeof(info));
-info.vScale = VEC3ONE;
-info.Pollygon = PG_BOX;
-info.Color = D3DXCOLOR(1, 1, 1, 1);
-m_pCubeObject->Init(info);
-
-
-m_WorldCamera.SetUp(D3DXVECTOR3(0, 10, -10));
-FONTMGR->Setup();
+	m_WorldCamera.SetUp(D3DXVECTOR3(0, 10, -10));
+	FONTMGR->Setup();
 }
 
 void GameManager::Update(float dTime)
@@ -150,6 +150,12 @@ void GameManager::Update(float dTime)
 			m_ModelMode = 0;
 
 	}
+	if (INPUTMGR->GetKeyUp('O')) {
+		Load();
+	}
+	if (INPUTMGR->GetKeyUp('P')) {
+		Save();
+	}
 
 	if (INPUTMGR->GetKeyDown(VK_LBUTTON)) {
 
@@ -171,7 +177,7 @@ void GameManager::Update(float dTime)
 			D3DXMATRIX m = i->GetTransform()->GetmTM();
 			//ray2.RayTransform(m);
 			if (i->PickingCheck(i, &m_ClickedPos, ray2)) {
-				
+
 				m_SelectedObject = i;
 				m_bClicked = true;
 				break;
@@ -184,22 +190,26 @@ void GameManager::Update(float dTime)
 		if (m_bClicked) {
 			if (m_ToolMode == 0) {
 				OBJECTINFO info;
-				ZeroMemory(&info, sizeof(info));
+				ZeroInfo(&info);
 				info.vPos = m_ClickedPos + VEC3UP * 2;
 				info.vScale = VEC3ONE;
 				info.Pollygon = PG_FROMXFILE;
 
-				info.fRadius = 10;
+				info.fRadius = 3;
 				info.Color = D3DXCOLOR(1, 1, 1, 1);
 				info.vDir = VEC3FORWARD;
+				
 				if (m_ModelMode == 0) {
 					info.FileName = "Resource/Airplane/airplane 2.x";
+					info.strName = "airplane";
 				}
 				if (m_ModelMode == 1) {
 					info.FileName = "Resource/misc/car.x";
+					info.strName = "car";
 				}
 				if (m_ModelMode == 2) {
 					info.FileName = "Resource/misc/heli.x";
+					info.strName = "heli";
 				}
 
 				baseObject* newObj = new baseObject;
@@ -218,8 +228,37 @@ void GameManager::Update(float dTime)
 
 	if (INPUTMGR->GetKey(VK_LBUTTON)) {
 		if (m_ToolMode == 2) {
-			if(m_SelectedObject)
+			if (m_SelectedObject) {
+				POINT pt;
+				pt = GetClientPoint();
+				MouseRay ray;
+				ray.CreateViewSpaceRay((int)pt.x, (int)pt.y);
+				D3DXMATRIX view;
+				DEVICE->GetTransform(D3DTS_VIEW, &view);
+				ray.RayTransform(view);
+				for (auto& i : m_ListObj) {
+					if (m_ToolMode != 0) {
+						if (i->tag != "Terrain") {
+							continue;
+						}
+					}
+					MouseRay ray2 = ray;
+					D3DXMATRIX m = i->GetTransform()->GetmTM();
+					//ray2.RayTransform(m);
+					if (i->PickingCheck(i, &m_ClickedPos, ray2)) {
+
+						//m_SelectedObject = i;
+						m_bClicked = true;
+						break;
+					}
+					else {
+						m_bClicked = false;
+						m_ClickedPos = D3DXVECTOR3(0, 0, 0);
+					}
+				}
 				m_SelectedObject->GetTransform()->SetvPos(m_ClickedPos + VEC3UP * 2);
+
+			}
 		}
 
 	}
@@ -252,7 +291,7 @@ void GameManager::Update(float dTime)
 
 void GameManager::Render(void)
 {
-	
+
 	DEVICE->Clear(0,	// RECT CNT
 		NULL, // RECT
 		D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // 클리어 타입(화면버퍼|깊이버퍼)
@@ -261,7 +300,7 @@ void GameManager::Render(void)
 		0);   // 스텐실버퍼(반사, 그림자) 초기값
 
 	DEVICE->BeginScene(); // 디바이스 그리겟다고 알림
-	
+
 	// 오브젝트 렌더코드
 	//if(m_CameraType==2)
 	//	m_TargetCamera.Render();
@@ -278,7 +317,7 @@ void GameManager::Render(void)
 	for (auto& a : m_ListObj) {
 		a->Render();
 	}
-	
+
 	// HELPER
 	m_Axis.Render();
 	m_Grid.Render();
@@ -288,44 +327,44 @@ void GameManager::Render(void)
 
 	///
 	DebugView();
-	DEVICE->GetTransform(D3DTS_VIEW, &m_OrgView);
-	ViewPortMinimap();
+	//DEVICE->GetTransform(D3DTS_VIEW, &m_OrgView);
+	//ViewPortMinimap();
 
-	DEVICE->Clear(0,	// RECT CNT
-		NULL, // RECT
-		D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // 클리어 타입(화면버퍼|깊이버퍼)
-		m_sky,	// 타겟버퍼 클리어 색상
-		1.0f, // 깊이버퍼 클리어 값(깊이값)
-		0);   // 스텐실버퍼(반사, 그림자) 초기값
+	//DEVICE->Clear(0,	// RECT CNT
+	//	NULL, // RECT
+	//	D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // 클리어 타입(화면버퍼|깊이버퍼)
+	//	m_sky,	// 타겟버퍼 클리어 색상
+	//	1.0f, // 깊이버퍼 클리어 값(깊이값)
+	//	0);   // 스텐실버퍼(반사, 그림자) 초기값
 
-	DEVICE->BeginScene(); // 디바이스 그리겟다고 알림
+	//DEVICE->BeginScene(); // 디바이스 그리겟다고 알림
 
-						  // 오브젝트 렌더코드
-	
-	for (auto& a : m_ListObj) {
-		a->Render();
-	}
+	//					  // 오브젝트 렌더코드
 
-	m_Axis.Render();
-	m_Grid.Render();
+	//for (auto& a : m_ListObj) {
+	//	a->Render();
+	//}
 
-	RenderBottom();
-	RenderRiver();
+	//m_Axis.Render();
+	//m_Grid.Render();
+
+	//RenderBottom();
+	//RenderRiver();
 
 
 
-	DEVICE->SetViewport(&m_OrgViewPort);
-	DEVICE->SetTransform(D3DTS_VIEW, &m_OrgView);
+	//DEVICE->SetViewport(&m_OrgViewPort);
+	//DEVICE->SetTransform(D3DTS_VIEW, &m_OrgView);
 
 	DEVICE->EndScene(); // 디바이스 다그렸다고 알림
 
 	DEVICE->Present(NULL, NULL, NULL, NULL);
-	
+
 }
 
 void GameManager::RenderBottom(void)
 {
-	
+
 
 }
 
@@ -367,7 +406,7 @@ void GameManager::RenderRiver(void)
 
 	DEVICE->DrawPrimitiveUP(D3DPT_TRIANGLELIST, 2, m_River, sizeof(D3DFVF_XYZ_NORMAL_UV));
 
-	for (int i = 0; i<8; i++)
+	for (int i = 0; i < 8; i++)
 		DEVICE->SetTexture(i, nullptr);
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW); // 컬링모드
 
@@ -395,24 +434,90 @@ void GameManager::Loop(void)
 
 void GameManager::ViewPortMinimap(void)
 {
+	/*
 	D3DXMATRIX mView;
 	//D3DXMatrixLookAtLH(&mView, &D3DXVECTOR3(0, 50, 0), &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 0, 1));
 	D3DXVECTOR3 pos = m_pAirPlane->GetTransform()->GetvPos();
-	D3DXVECTOR3 view = pos-m_pAirPlane->GetTransform()->GetvDir()*pos.y;
+	D3DXVECTOR3 view = pos - m_pAirPlane->GetTransform()->GetvDir()*pos.y;
 	view.y = 0;
 	D3DXMatrixLookAtLH(&mView, &pos, &view, &D3DXVECTOR3(0, 1, 0));
 	DEVICE->SetTransform(D3DTS_VIEW, &mView);
 	D3DVIEWPORT9 vp;
-	vp.X = WINMGR->GetWidth()-200;
+	vp.X = WINMGR->GetWidth() - 200;
 	vp.Y = 0;
 	vp.Width = 200;
 	vp.Height = 200;
 	vp.MinZ = 0.0f;
 	vp.MaxZ = 1.0f;
 	DEVICE->SetViewport(&vp);
+	*/
 }
 
-void GameManager::DebugView (void)
+void GameManager::Save(void)
+{
+	fopen_s(&m_File, "mapData", "w+");
+	char buffer[256];
+	ZeroMemory(buffer, sizeof(buffer));
+	for (auto & i : m_ListObj) {
+		if (i->tag == "Terrain")
+			continue;
+		auto pos = i->GetTransform()->GetvPos();
+		auto rot = i->GetTransform()->GetvRot();
+		auto scale = i->GetTransform()->GetvScale();
+		fprintf(m_File,"\n[Transform]\n");
+		fprintf(m_File,"%.2f@%.2f@%.2f@%.2f@%.2f@%.2f@%.2f@%.2f@%.2f@\n", pos.x, pos.y, pos.z, rot.x, rot.y, rot.z, scale.x, scale.y, scale.z);
+		auto dir = i->GetTransform()->GetOrgvDir();
+		fprintf(m_File,"%.2f@%.2f@%.2f@%.2f\n", dir.x, dir.y, dir.z, i->GetfRadius());
+		if (i->tag == "")
+			i->tag = "none";
+		fprintf(m_File,"%s\n%s", i->tag.c_str(), i->GetFIleName().c_str());
+	}
+	fclose(m_File);
+}
+
+void GameManager::Load(void)
+{
+	char buffer[255] = { 0, };
+	char buffer2[255] = { 0, };
+	for (auto& i : m_ListObj) {
+		if (i->tag == "Terrain")
+			continue;
+		i->SetbLife(false);
+	}
+	OBJECTINFO info;
+	ZeroInfo(&info);
+	info.vPos = m_ClickedPos + VEC3UP * 2;
+	info.vScale = VEC3ONE;
+	info.Pollygon = PG_FROMXFILE;
+
+	info.fRadius = 3;
+	info.Color = D3DXCOLOR(1, 1, 1, 1);
+	info.vDir = VEC3FORWARD;
+	fopen_s(&m_File, "mapData", "r+");
+	fgets(buffer, 255, m_File);
+	while (!feof(m_File)) {
+		fgets(buffer,255,m_File);
+		fgets(buffer, 255, m_File);
+		sscanf(buffer, "%f@%f@%f@%f@%f@%f@%f@%f@%f@", &info.vPos.x, &info.vPos.y, &info.vPos.z, &info.vRot.x, &info.vRot.y, &info.vRot.z, &info.vScale.x, &info.vScale.y, &info.vScale.z);
+		fgets(buffer, 255, m_File);
+		fscanf(m_File, "%f@%f@%f@%f", &info.vDir.x, &info.vDir.y, &info.vDir.z, &info.fRadius);
+		fgets(buffer, 255, m_File);
+		if (buffer[strlen(buffer) - 1] == '\n')
+		buffer[strlen(buffer)-1] = '\0';
+		fgets(buffer2, 255, m_File);
+		if(buffer2[strlen(buffer2)-1]=='\n')
+			buffer2[strlen(buffer2) - 1] = '\0';
+		info.strName = buffer;
+		info.FileName = buffer2;
+		//fgets(buffer, 255, m_File);
+		baseObject* newObj = new baseObject();
+		newObj->Init(info);
+	}
+	
+	fclose(m_File);
+}
+
+void GameManager::DebugView(void)
 {
 	int _x = 10;
 	int _y = 10;
@@ -421,13 +526,13 @@ void GameManager::DebugView (void)
 	DebugDis = D3DXVec3LengthSq(&(DebugVec1 - DebugVec2));
 	//OutputDebugString(textBuffer);
 	FONTMGR->DrawTextA(_x, _y, _color, "<디자인 툴 정보>");
-	FONTMGR->DrawTextA(_x, _y += 15, _color, "-1.추가 2.삭제 3.변경 현재 모드 : %d",m_ToolMode+1);
-	FONTMGR->DrawTextA(_x, _y, _color, "<모델 정보>");
+	FONTMGR->DrawTextA(_x, _y += 15, _color, "-1.추가 2.삭제 3.변경 현재 모드 : %d", m_ToolMode + 1);
+	FONTMGR->DrawTextA(_x, _y += 15, _color, "<모델 정보>");
 	FONTMGR->DrawTextA(_x, _y += 15, _color, "-1.비행기 2.자동차 3.헬리콥터 - 현재 모델 : %d", m_ModelMode + 1);
-	
+
 	FONTMGR->DrawTextA(_x, _y += 15, _color, "충돌위치 (%.2f , %.2f , %.2f)", m_ClickedPos.x, m_ClickedPos.y, m_ClickedPos.z);
-	FONTMGR->DrawTextA(_x, _y+=15, _color, m_bClicked?"클릭!":"대기중");
-	FONTMGR->DrawTextA(_x, _y+=15, _color,"충돌위치 (%.2f , %.2f , %.2f)", m_ClickedPos.x, m_ClickedPos.y, m_ClickedPos.z);
+	FONTMGR->DrawTextA(_x, _y += 15, _color, m_bClicked ? "클릭!" : "대기중");
+	FONTMGR->DrawTextA(_x, _y += 15, _color, "충돌위치 (%.2f , %.2f , %.2f)", m_ClickedPos.x, m_ClickedPos.y, m_ClickedPos.z);
 	/*
 	FONTMGR->DrawTextA(_x, _y, _color, "<플레이어 정보>");
 	FONTMGR->DrawTextA(_x, _y += 15, _color, " -위치 (%.2f,%.2f,%.2f)",m_pTriPlayer->m_vPos.x, m_pTriPlayer->m_vPos.y, m_pTriPlayer->m_vPos.z);
@@ -447,7 +552,7 @@ void GameManager::DebugView (void)
 	FONTMGR->DrawTextA(_x, _y += 15, _color, "  [%.2f, %.2f, %.2f, %.2f ]", m_Tank->m_mTM._41, m_Tank->m_mTM._42, m_Tank->m_mTM._43, m_Tank->m_mTM._44);
 	D3DXVECTOR3 DestPos = m_pCubeObject->m_vPos;
 	DestPos -= m_pTriPlayer->m_vPos;
-	
+
 	DestPos = m_pTriPlayer->m_targetPos - m_pTriPlayer->m_vPos;
 
 	float len = D3DXVec3Length(&DestPos);
@@ -458,7 +563,7 @@ void GameManager::DebugView (void)
 
 void GameManager::WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 {
-	if (m_CameraType==0) {
+	if (m_CameraType == 0) {
 		m_WorldCamera.WndProc(hWnd, iMsg, wParam, lParam);
 	}
 }

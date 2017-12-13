@@ -22,6 +22,8 @@ public:
 	D3DXMATRIX m_mTexTrans;
 	D3DXVECTOR3 m_vTexPos;
 
+	FILE* m_File;
+
 	int m_Winter;
 
 	int m_TimeState;
@@ -65,6 +67,9 @@ public:
 	void Release(void);
 	void Loop(void);
 	void ViewPortMinimap(void);
+
+	void Save(void);
+	void Load(void);
 };
 
 

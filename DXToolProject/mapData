@@ -1,0 +1,36 @@
+
+[Transform]
+-7.59@1.90@11.84@0.00@0.00@0.00@1.00@1.00@1.00@
+0.00@0.00@1.00@3.00
+airplane
+Resource/Airplane/airplane 2.x
+[Transform]
+-9.45@1.90@-9.35@0.00@0.00@0.00@1.00@1.00@1.00@
+0.00@0.00@1.00@3.00
+airplane
+Resource/Airplane/airplane 2.x
+[Transform]
+10.16@1.90@-17.67@0.00@0.00@0.00@1.00@1.00@1.00@
+0.00@0.00@1.00@3.00
+airplane
+Resource/Airplane/airplane 2.x
+[Transform]
+19.39@1.90@-10.25@0.00@0.00@0.00@1.00@1.00@1.00@
+0.00@0.00@1.00@3.00
+airplane
+Resource/Airplane/airplane 2.x
+[Transform]
+23.57@1.90@19.94@0.00@0.00@0.00@1.00@1.00@1.00@
+0.00@0.00@1.00@3.00
+car
+Resource/misc/car.x
+[Transform]
+-16.69@1.90@6.00@0.00@0.00@0.00@1.00@1.00@1.00@
+0.00@0.00@1.00@3.00
+car
+Resource/misc/car.x
+[Transform]
+-16.55@1.90@-18.11@0.00@0.00@0.00@1.00@1.00@1.00@
+0.00@0.00@1.00@3.00
+heli
+Resource/misc/heli.x

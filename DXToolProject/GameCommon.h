@@ -94,7 +94,7 @@ enum Pollygon { PG_VOID,PG_TRIANGLES, PG_SPHERE, PG_BOX, PG_CYLINDER, PG_TEAPOT,
 
 struct OBJECTINFO
 {
-	char*			strName;
+	string			strName;
 
 	D3DXVECTOR3		vPos;
 	D3DXVECTOR3		vRot;
@@ -116,6 +116,7 @@ struct OBJECTINFO
 	COLLSPHEREINFO  m_collInfo;
 };
 
+void ZeroInfo(OBJECTINFO* info);
 
 
 struct D3DFVF_XYZ_COLOR

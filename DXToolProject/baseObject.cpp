@@ -17,6 +17,7 @@ baseObject::~baseObject()
 
 void baseObject::Init(OBJECTINFO _info)
 {
+	Pickable::Init(_info);
 	m_PollygonType = _info.Pollygon;
 	switch (_info.Pollygon) {
 	case PG_VOID:
@@ -37,8 +38,10 @@ void baseObject::Init(OBJECTINFO _info)
 		COLLMGR->CreateCollisionSphere(_info);
 	}
 	m_fRadius = _info.fRadius;
-	if(_info.strName!=nullptr)
+	//if(_info.strName!=nullptr)
 		tag = _info.strName;
+	//if (_info.FileName != nullptr)
+		m_FIleName = _info.FileName;
 }
 
 void baseObject::Update(float dTime)

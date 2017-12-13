@@ -6,7 +6,9 @@ void Terrain::Init()
 {	
 
 	OBJECTINFO _info;
-	ZeroMemory(&_info, sizeof(_info));
+	ZeroInfo(&_info);
+	_info.strName.resize(255);
+	_info.FileName.resize(255);
 	for (int i = 0; i <2500; i++) {
 		m_ground[i * 6].vPos = {
 			-25.0f + (i % 50) ,
@@ -46,7 +48,9 @@ void Terrain::Init()
 	_info.vPos = VEC3ZERO;
 	_info.vScale = VEC3ONE;
 	_info.vRot = VEC3ZERO;
+
 	_info.strName = "Terrain";
+	_info.FileName = "";
 	
 	baseObject::Init(_info);
 	D3DXMatrixIdentity(&(m_Transform->GetmTM()));

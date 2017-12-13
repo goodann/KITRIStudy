@@ -1,9 +1,10 @@
 #include"GameCommon.h"
 
 
-void Pickable::Init()
+void Pickable::Init(OBJECTINFO _info)
 {
-	
+	m_PickRadius = _info.fRadius;
+	D3DXCreateSphere(DEVICE, m_PickRadius, 36, 36, &m_CollSphere, nullptr);
 }
 
 void Pickable::Update(void)
@@ -68,7 +69,7 @@ bool Pickable::PickingTrianglesCheck(baseObject * Target, D3DXVECTOR3 * pickPos,
 Pickable::Pickable()
 {
 	m_CollSphere = nullptr;
-	D3DXCreateSphere(DEVICE, 1.5f, 36, 36, &m_CollSphere, nullptr);
+	
 	m_PickRadius = 1;
 	
 }
