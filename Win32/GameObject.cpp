@@ -28,58 +28,82 @@ std::wstring & GameObject::ClassName()
 	// TODO: 여기에 반환 구문을 삽입합니다.
 }
 
-void GameObject::Init(std::wstring _name, int _x, int _y, DWORD color)
+void GameObject::Init(std::wstring _name, int _x, int _y)
 {
-	m_Sprite= SPRITEMGR->GetSprite(_name, color);
-	m_Sprite->Target() = this;
-	m_Pos.x() = (float)_x;
-	m_Pos.y()= (float)_y;
-	m_Pos.m_size = m_Sprite->Size();
-	const type_info &rtype_info = typeid((*this));
-	m_TotalSize = m_Pos.m_size;
-	m_ClassName = Multi2Wide(rtype_info.name());
-
-}
-
-void GameObject::Init(std::wstring _name, Vector2 _pos, DWORD color)
-{
-	m_Sprite = SPRITEMGR->GetSprite(_name, color);
-	m_Sprite->Target() = this;
-	m_Pos.m_pos = _pos;
-	m_Pos.m_size = m_Sprite->Size();
-	const type_info &rtype_info = typeid((*this));
-	m_TotalSize = m_Pos.m_size;
-	m_ClassName = Multi2Wide(rtype_info.name());
-	
-}
-
-void GameObject::Init(std::wstring _name, int _x, int _y, int _w, int _h, DWORD color)
-{
-	m_Sprite = SPRITEMGR->GetSprite(_name,color);
+	m_Sprite = SPRITEMGR->GetSprite(_name);
 	m_Sprite->Target() = this;
 	m_Pos.x() = (float)_x;
 	m_Pos.y() = (float)_y;
-	//m_Pos.m_size = m_Sprite->Size();
-	m_TotalSize = m_Sprite->Size();
-	m_Pos.m_size(_w, _h);
-	//m_Sprite->Size()(_w, _h);
-	//m_Sprite->Size();
+	m_Pos.m_size = m_Sprite->TexSize();
 	const type_info &rtype_info = typeid((*this));
-
+	m_TotalSize = m_Sprite->Size();
 	m_ClassName = Multi2Wide(rtype_info.name());
 }
 
-void GameObject::Init(std::wstring _name, Vector2 _pos, Vector2 _size, DWORD color)
+void GameObject::Init(std::wstring _name, Vector2 _pos)
 {
-	m_Sprite = SPRITEMGR->GetSprite(_name,color);
+	m_Sprite = SPRITEMGR->GetSprite(_name);
 	m_Sprite->Target() = this;
 	m_Pos.m_pos = _pos;
+	m_Pos.m_size = m_Sprite->TexSize();
 	const type_info &rtype_info = typeid((*this));
 	m_TotalSize = m_Sprite->Size();
-	//m_Sprite->Size() = _size;
-	m_Pos.m_size = _size;
 	m_ClassName = Multi2Wide(rtype_info.name());
+
 }
+//
+//void GameObject::Init(std::wstring _name, int _x, int _y, DWORD color)
+//{
+//	m_Sprite = SPRITEMGR->GetSprite(_name, color);
+//	m_Sprite->Target() = this;
+//	m_Pos.x() = (float)_x;
+//	m_Pos.y() = (float)_y;
+//	m_Pos.m_size = m_Sprite->TexSize();
+//	const type_info &rtype_info = typeid((*this));
+//	m_TotalSize = m_Pos.m_size;
+//	m_ClassName = Multi2Wide(rtype_info.name());
+//
+//}
+//
+//void GameObject::Init(std::wstring _name, Vector2 _pos, DWORD color)
+//{
+//	m_Sprite = SPRITEMGR->GetSprite(_name, color);
+//	m_Sprite->Target() = this;
+//	m_Pos.m_pos = _pos;
+//	m_Pos.m_size = m_Sprite->TexSize();
+//	const type_info &rtype_info = typeid((*this));
+//	m_TotalSize = m_Pos.m_size;
+//	m_ClassName = Multi2Wide(rtype_info.name());
+//
+//}
+//
+//void GameObject::Init(std::wstring _name, int _x, int _y, int _w, int _h, DWORD color)
+//{
+//	m_Sprite = SPRITEMGR->GetSprite(_name, color);
+//	m_Sprite->Target() = this;
+//	m_Pos.x() = (float)_x;
+//	m_Pos.y() = (float)_y;
+//	//m_Pos.m_size = m_Sprite->Size();
+//	m_TotalSize = m_Sprite->Size();
+//	m_Pos.m_size(_w, _h);
+//	//m_Sprite->Size()(_w, _h);
+//	//m_Sprite->Size();
+//	const type_info &rtype_info = typeid((*this));
+//
+//	m_ClassName = Multi2Wide(rtype_info.name());
+//}
+//
+//void GameObject::Init(std::wstring _name, Vector2 _pos, Vector2 _size, DWORD color)
+//{
+//	m_Sprite = SPRITEMGR->GetSprite(_name, color);
+//	m_Sprite->Target() = this;
+//	m_Pos.m_pos = _pos;
+//	const type_info &rtype_info = typeid((*this));
+//	m_TotalSize = m_Sprite->Size();
+//	//m_Sprite->Size() = _size;
+//	m_Pos.m_size = _size;
+//	m_ClassName = Multi2Wide(rtype_info.name());
+//}
 
 void GameObject::Update(void)
 {

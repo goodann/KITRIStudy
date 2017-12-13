@@ -18,22 +18,22 @@ void Bullet::OnCollisionHit(GameObject * pCollObj)
 				return;
 		}
 		AnimatedGameObject* pObj = new AnimatedGameObject;
-		pObj->Init(_T("Resource/explosion.bmp"), m_Pos.m_pos,Vector2(40,40), RGB(0, 0, 0),0.5f);
+		pObj->Init(_T("explosion.bmp"), m_Pos.m_pos,1.0f);
 		GAMEMGR->CreateObject(pObj);
 		m_Life = false;
 		pCollObj->Attacked(1);
 	}
 }
 
-void Bullet::Init(std::wstring _name, int _x, int _y, DWORD color)
+void Bullet::Init(std::wstring _name, int _x, int _y)
 {
-	GameObject::Init(_name, _x, _y, color);
+	GameObject::Init(_name, _x, _y);
 	PHYSICMGR->AddCollider(this);
 }
 
-void Bullet::Init(std::wstring _name, Vector2 _pos, DWORD color)
+void Bullet::Init(std::wstring _name, Vector2 _pos)
 {
-	GameObject::Init(_name, _pos, color);
+	GameObject::Init(_name, _pos);
 	PHYSICMGR->AddCollider(this);
 }
 

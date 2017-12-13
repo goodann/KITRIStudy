@@ -6,7 +6,7 @@ void DefaultPlayersWeapon::Fire(Character* _Shooter)
 {
 	Bullet* newBullet = new Bullet;
 
-	newBullet->Init(_T("Resource/Bullet.bmp"), _Shooter->Position().m_pos, RGB(0, 0, 255));
+	newBullet->Init(_T("bullet.bmp"), _Shooter->Position().m_pos);
 	GAMEMGR->CreateObject(newBullet);
 	newBullet->Speed()(0, -5);
 	newBullet->TAG() = _T("PlayersBullet");

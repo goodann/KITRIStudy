@@ -4,7 +4,7 @@ class SingletonEnemyManager
 	SINGLETON_FUNC(SingletonEnemyManager);
 	std::list<GameObject*>		m_listEnemys;
 	int			m_EnemyMax;
-
+	Boss* m_Boss;
 	int m_CurrEnemyCnt;
 
 public:

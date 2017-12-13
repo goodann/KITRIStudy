@@ -12,7 +12,8 @@ void Character::Shot()
 void Character::Update()
 {
 	//GameObject::Update();
-	if (m_Pos.left() < 0 || m_Pos.right()>WINMGR->GetWidth() || m_Pos.bottom() > WINMGR->GetHeight()+200 || m_Pos.top() < -800) {
+	if (m_Pos.left() < -200 || m_Pos.right()>WINMGR->GetWidth()+200 || 
+		m_Pos.bottom() > WINMGR->GetHeight()+200 || m_Pos.top() < -800) {
 		m_Life = false;
 	}
 	Shot();
@@ -44,14 +45,14 @@ void Character::Attacked(int damage)
 	}
 }
 
-void Character::Init(std::wstring _name, int _x, int _y, DWORD color)
+void Character::Init(std::wstring _name, int _x, int _y)
 {
-	GameObject::Init(_name, _x, _y, color);
+	GameObject::Init(_name, _x, _y);
 	PHYSICMGR->AddCollider(this);
 }
 
-void Character::Init(std::wstring _name, Vector2 _pos, DWORD color)
+void Character::Init(std::wstring _name, Vector2 _pos)
 {
-	GameObject::Init(_name, _pos, color);
+	GameObject::Init(_name, _pos);
 	PHYSICMGR->AddCollider(this);
 }

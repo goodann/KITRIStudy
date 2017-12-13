@@ -2,9 +2,9 @@
 #include "Enemy.h"
 
 
-void Enemy::Init(std::wstring _name, int _x, int _y, DWORD color, MovingAI * _moveAI, Weapon * _Weapon)
+void Enemy::Init(std::wstring _name, int _x, int _y, MovingAI * _moveAI, Weapon * _Weapon)
 {
-	Character::Init(_name, _x, _y, color);
+	Character::Init(_name, _x, _y);
 	if (_moveAI == nullptr)
 		m_MovingAI = new DefaultMovingAI;
 	else
@@ -17,9 +17,9 @@ void Enemy::Init(std::wstring _name, int _x, int _y, DWORD color, MovingAI * _mo
 	}
 }
 
-void Enemy::Init(std::wstring _name, Vector2 _pos, DWORD color, MovingAI * _moveAI, Weapon * _Weapon)
+void Enemy::Init(std::wstring _name, Vector2 _pos, MovingAI * _moveAI, Weapon * _Weapon)
 {
-	Character::Init(_name, _pos, color);
+	Character::Init(_name, _pos);
 	m_MovingAI = _moveAI;
 	m_Weapon = _Weapon;
 }
@@ -49,6 +49,6 @@ void Enemy::OnDelete()
 		return;
 	}
 	AnimatedGameObject* pObj = new AnimatedGameObject;
-	pObj->Init(_T("Resource/explosions.bmp"), m_Pos.m_pos, Vector2(64, 64), RGB(255, 255, 255), 1.5f);
+	pObj->Init(_T("explosions.bmp"), m_Pos.m_pos, 1.5f);
 	GAMEMGR->CreateObject(pObj);
 }

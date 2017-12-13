@@ -120,13 +120,22 @@
     <ClInclude Include="SingletonEnemyManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Collider.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="SingletonPyhisicsManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="AnimatedGameObject.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Objects\Property</Filter>
+    </ClInclude>
+    <ClInclude Include="DropedItem.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultBossMovingAI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -203,13 +212,22 @@
     <ClCompile Include="SingletonEnemyManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Collider.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="SingletonPyhisicsManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="AnimatedGameObject.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Objects\Property</Filter>
+    </ClCompile>
+    <ClCompile Include="DropedItem.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultBossMovingAI.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

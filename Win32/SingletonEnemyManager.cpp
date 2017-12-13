@@ -6,6 +6,7 @@ SingletonEnemyManager::SingletonEnemyManager()
 {
 	m_EnemyMax = 100;
 	m_CurrEnemyCnt = 0;
+	m_Boss = nullptr;
 }
 
 
@@ -15,11 +16,23 @@ SingletonEnemyManager::~SingletonEnemyManager()
 
 void SingletonEnemyManager::Init(void)
 {
+	
 
 }
 
 void SingletonEnemyManager::Update(void)
 {
+	if (m_Boss == nullptr) {
+
+		int _x = rand() % (WINMGR->GetWidth() - 64);
+		int _y = 0;
+		m_Boss = new Boss;
+
+		m_Boss->Init(_T("boss.bmp"), _x, _y);
+		m_Boss->TAG() = (_T("EnemyBoss"));
+		GAMEMGR->CreateObject(m_Boss);
+		CreateEnemy(m_Boss);
+	}
 	if (m_CurrEnemyCnt > m_EnemyMax) return;
 
 	{
@@ -75,7 +88,7 @@ void SingletonEnemyManager::CreateEnemy(void)
 
 		Weapon* pWeapon = new DefaultEnemysWeapon;
 
-		_pObj->Init(_T("Resource/enemy.bmp"), _x, _y, RGB(255, 0, 255),pAI,pWeapon);
+		_pObj->Init(_T("enemy.bmp"), _x, _y, pAI,pWeapon);
 		_pObj->TAG() = (_T("Enemy"));
 		GAMEMGR->CreateObject(_pObj);
 		CreateEnemy(_pObj);

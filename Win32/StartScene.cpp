@@ -4,7 +4,7 @@
 
 void StartScene::Init(HDC hdc)
 {
-	m_Sprite = SPRITEMGR->GetSprite(_T("Resource/logo.bmp"));
+	m_Sprite = SPRITEMGR->GetSprite(_T("logo.bmp"));
 
 	m_BlenFunc.SourceConstantAlpha = 255;
 	m_Timer.SetTimer(0.05f);
@@ -25,7 +25,7 @@ void StartScene::Render(HDC _backDC)
 
 void StartScene::Release()
 {
-	m_map = SPRITEMGR->GetSprite(_T("Resource/map.bmp"));
+	m_map = SPRITEMGR->GetSprite(_T("map.bmp"));
 }
 
 StartScene::StartScene()

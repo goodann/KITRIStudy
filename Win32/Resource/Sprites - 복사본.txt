@@ -1,0 +1,13 @@
+boss.bmp/true/255/0/255/false/204/204/
+bullet.bmp/true/0/0/255/false/204/204/
+ellipseBullet.bmp/true/0/0/255/false/204/204/
+ending.bmp/false/204/204/204/false/204/204/
+enemy.bmp/true/255/0/255/false/204/204/
+explosion.bmp/true/0/0/0/true/40/40/
+explosions.bmp/true/255/255/255/true/64/64/
+hpbar_boss.bmp/false/204/204/204/false/204/204/
+hpbarback_boss.bmp/false/204/204/204/false/204/204/
+logo.bmp/true/255/255/255/false/204/204/
+map.bmp/false/204/204/204/false/204/204/
+paticle.bmp/true/255/255/255/true/16/48/
+player.bmp/true/0/0/255/false/0/0/

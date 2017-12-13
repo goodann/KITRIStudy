@@ -13,7 +13,7 @@ GameScene::~GameScene()
 	Release();
 }
 
-GameObject * GameScene::CreateObject(std::wstring _name, std::wstring _classname, int _x, int _y, DWORD color)
+GameObject * GameScene::CreateObject(std::wstring _name, std::wstring _classname, int _x, int _y)
 {
 	GameObject* _pObj = nullptr;
 	
@@ -21,25 +21,25 @@ GameObject * GameScene::CreateObject(std::wstring _name, std::wstring _classname
 	if (_classname == _T("Map"))
 	{
 		_pObj = new Map;
-		_pObj->Init(_name, _x, _y, color);
+		_pObj->Init(_name, _x, _y);
 	}
 	else if (_classname == _T("Player"))
 	{
 		_pObj = new Player;
-		_pObj->Init(_name, _x, _y, color);
+		_pObj->Init(_name, _x, _y);
 	}
 	
 	else if (_classname == _T("Enemy"))
 	{
 		_pObj = new Enemy;
-		_pObj->Init(_name, _x, _y, color);
+		_pObj->Init(_name, _x, _y);
 		ENEMYMGR->CreateEnemy(_pObj);
 	}
 	
 	else if (_classname == _T("Bullet"))
 	{
 		_pObj = new Bullet;
-		_pObj->Init(_name, _x, _y, color);
+		_pObj->Init(_name, _x, _y);
 	}
 	else
 	{
@@ -108,11 +108,10 @@ void GameScene::Init(HDC hdc)
 	GameObject* _pObj = nullptr;
 
 	// map
-	_pObj = CreateObject(_T("Resource/map.bmp"), _T("Map"), 672/2,800/2);
+	_pObj = CreateObject(_T("map.bmp"), _T("Map"), 672/2,800/2);
 	//CreateObject(_pObj);
 	// player
-	_pObj = CreateObject(_T("Resource/player.bmp"), _T("Player"), 672 / 2 - 17, 700,
-		RGB(0, 0, 255));
+	_pObj = CreateObject(_T("player.bmp"), _T("Player"), 672 / 2 - 17, 700);
 	//CreateObject(_pObj);
 }
 

@@ -15,7 +15,7 @@ public:
 	Character();
 	~Character();
 	void Attacked(int damage);
-	void Init(std::wstring _name, int _x, int _y, DWORD color);
-	void Init(std::wstring _name, Vector2 _pos, DWORD color);
+	void Init(std::wstring _name, int _x, int _y);
+	void Init(std::wstring _name, Vector2 _pos);
 };
 

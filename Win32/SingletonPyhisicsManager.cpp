@@ -34,6 +34,7 @@ void SingletonPyhisicsManager::AddCollider(GameObject * _Obj)
 {
 	Collider* newCol = new Collider(_Obj);
 	m_ListColliders.push_front(newCol);
+	size++;
 }
 
 void SingletonPyhisicsManager::DeleteCollider(GameObject * _pObj)
@@ -44,6 +45,7 @@ void SingletonPyhisicsManager::DeleteCollider(GameObject * _pObj)
 		if (iter == m_ListColliders.end())
 			return;
 		if ((*iter)->Target() == _pObj) {
+			size--;
 			delete *iter;
 			iter = m_ListColliders.erase_after(before);
 		}
@@ -65,6 +67,7 @@ bool SingletonPyhisicsManager::RePosCheck(GameObject * _pObj)
 
 SingletonPyhisicsManager::SingletonPyhisicsManager()
 {
+	size = 0;
 }
 
 

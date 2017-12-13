@@ -7,7 +7,7 @@ protected:
 
 
 public:
-	virtual GameObject* CreateObject(std::wstring _name, std::wstring _classname,int _x, int _y, DWORD color = -1);
+	virtual GameObject* CreateObject(std::wstring _name, std::wstring _classname,int _x, int _y);
 	
 	void ObjectClear(void);
 public:
