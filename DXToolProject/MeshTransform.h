@@ -15,7 +15,7 @@ protected:
 
 
 	LPD3DXMESH					m_pMesh;
-	GETTER(float, fRadius);
+	//GETTER(float, fRadius);
 	int m_index;
 	D3DXVECTOR3 m_pivot;
 public:
