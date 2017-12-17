@@ -1,6 +1,7 @@
 #pragma once
 class Tank:public baseObject
 {
+public:
 	TankBody m_Body;
 	TankTop m_Top;
 public:

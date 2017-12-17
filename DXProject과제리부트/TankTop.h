@@ -1,7 +1,8 @@
 #pragma once
 class Tank;
-class TankTop : public baseObject
+class TankTop : public CubeObject
 {
+public:
 	//D3DFVF_XYZ_COLOR		m_arrVertex[36];
 	//D3DFVF_XYZ_COLOR		m_VarrelArrVertex[36];
 	list<Bullet*> m_bullet;

@@ -114,8 +114,10 @@ void TankTop::Init(Tank* Parent) {
 	info.Material.Ambient= info.Material.Diffuse= D3DXCOLOR(0.6f, 0.6f, 0.6f, 0);
 	D3DXCreateBox(DEVICE, 1, 1, 1, &m_pMesh, nullptr);
 	D3DXCreateBox(DEVICE, 0.5, 0.5, 2, &m_pVarrelMesh, nullptr);
-	info.Pollygon = PG_VOID;
-	baseObject::Init(info);
+	info.Pollygon = PG_BOX;
+	info.Parent = Parent;
+	info.vPos = VEC3UP;
+	CubeObject::Init(info);
 	//D3DXMatrixIdentity(&m_mTrans);
 
 	//D3DXMatrixTranslation(&m_mTrans, 0, 0, 0);
@@ -125,6 +127,7 @@ void TankTop::Init(Tank* Parent) {
 
 void TankTop::Update(float dtime,bool _isBoarding)
 {
+	CubeObject::Update(dtime);
 	if (_isBoarding) {
 
 		if (INPUTMGR->GetKey('Z'))
@@ -150,7 +153,8 @@ void TankTop::Update(float dtime,bool _isBoarding)
 			newBullet->m_isTankBullet = true;
 
 
-			D3DXVECTOR3 vBulletPos = D3DXVECTOR3(0, 0, 2);
+			//D3DXVECTOR3 vBulletPos = m_Transform->GetvPos();
+			//D3DXVECTOR3 vBulletPos = m_Transform->GetvDir() * 2;
 			//D3DXVec3TransformCoord(&vBulletPos, &vBulletPos, &m_mTM);
 			//D3DXVECTOR3 vBulletRot = m_vRot;
 
@@ -165,9 +169,50 @@ void TankTop::Update(float dtime,bool _isBoarding)
 			ZeroInfo(&_info);
 			_info.vDir = VEC3FORWARD;
 
+			//D3DXVec3TransformNormal(&vBulletPos, &vBulletPos, &(m_Parent->GetTransform()->GetmTM()));// ->getTransform()->GetmTM());
+			//D3DXVec3TransformCoord(&vBulletPos, &vBulletPos, &m_Transform->GetmTM());
+			//D3DXVec3TransformCoord(&vBulletPos, &vBulletPos, &m_Parent->GetTransform()->GetmTM());
+			//_info.vPos = vBulletPos;
+
+			////_info.vPos = vBulletPos + pos;
+			//D3DXVECTOR3 vRot = m_Transform->GetvRot();
+			//D3DXVec3TransformNormal(&vRot, &vRot, &m_Parent->GetTransform()->GetmRot());
+			//_info.vRot = vRot;
+			//D3DXVECTOR3 vScale = m_Transform->GetvScale();
+			//D3DXVec3TransformNormal(&vScale, &vScale, &m_Parent->GetTransform()->GetmScale());
+			//_info.vScale = vScale*0.1f;
+
+			//D3DXVECTOR3 vDir = m_Transform->GetvDir();
+			//D3DXVec3TransformNormal(&vDir, &vDir, &m_Parent->GetTransform()->GetmRot());
+
+			D3DXVECTOR3 vBulletPos = D3DXVECTOR3(0,1,1);
+			D3DXVec3TransformCoord(&vBulletPos, &vBulletPos, &m_Transform->GetmTM());
+			_info.vDir = VEC3FORWARD;
+
+			D3DXVECTOR3 vPos= m_Parent->GetTransform()->GetvPos();
+			D3DXVECTOR3 vRot=m_Parent->GetTransform()->GetvRot();
+			D3DXVECTOR3 vScale= m_Parent->GetTransform()->GetvScale();
+			D3DXVECTOR3 vDir= m_Parent->GetTransform()->GetvDir();
+
+			D3DXVec3TransformCoord(&vPos, &vPos, &m_Parent->GetTransform()->GetmTM());
+			D3DXVec3TransformNormal(&vRot, &vRot, &m_Parent->GetTransform()->GetmRot());
+
+
+			D3DXVec3TransformNormal(&vDir, &vDir, &m_Parent->GetTransform()->GetmRot());
+
 			_info.vPos = vBulletPos;
-			_info.vRot = m_Transform->GetvRot();
-			_info.vScale = m_Transform->GetvScale()*0.1f;
+			_info.vRot = vRot;
+			_info.vScale = m_Transform->GetvScale()*0.3f;
+
+			_info.vDir = vDir + D3DXVECTOR3(0, 0.5f, 0);
+			D3DXVec3Normalize(&(_info.vDir), &(_info.vDir));
+
+			//_info.vPos = vBulletPos;
+			//_info.vRot = m_Transform->GetvRot();
+			//_info.vScale = m_Transform->GetvScale()*0.3f;
+
+			//_info.vDir = m_Transform->GetvDir() + D3DXVECTOR3(0, 0.5f, 0);
+			//D3DXVec3Normalize(&(_info.vDir), &(_info.vDir));
 			_info.Parent = this;
 			newBullet->Init(_info);
 
@@ -179,8 +224,9 @@ void TankTop::Update(float dtime,bool _isBoarding)
 			auto b = a;
 			a++;
 			if (D3DXVec3Length(&(*b)->GetTransform()->GetvPos()) > 40) {
-				delete *b;
-				m_bullet.erase(b);
+				//delete *b;
+				//m_bullet.erase(b);
+				(*b)->SetbLife(false);
 				continue;
 			}
 			for (auto& c : GAMEMGR->m_Tree) {
@@ -191,8 +237,10 @@ void TankTop::Update(float dtime,bool _isBoarding)
 					b = b;
 				}
 				if (c->IsSphereCollision(*b)) {
-					delete *b;
-					m_bullet.erase(b);
+					//delete *b;
+					(*b)->SetbLife(false);
+					(*b)->SetbDead(true);
+					//m_bullet.erase(b);
 					break;
 				}
 
@@ -205,8 +253,9 @@ void TankTop::Update(float dtime,bool _isBoarding)
 		auto b = a;
 		a++;
 		if ((*b)->GetbLife() == false) {
-			delete *b;
-			m_bullet.erase(b);
+			//delete *b;
+			//(*b)->SetbDead(true);
+			//m_bullet.erase(b);
 		}
 	}
 
@@ -225,7 +274,7 @@ void TankTop::Update(float dtime,bool _isBoarding)
 	//	m_mVTM = m_mScale * m_mRot * m_mVTrans;
 	//}
 
-
+	
 }
 
 void TankTop::Render(void)
@@ -234,7 +283,7 @@ void TankTop::Render(void)
 	DEVICE->SetMaterial(&m_Material);
 
 	
-//	DEVICE->SetTransform(D3DTS_WORLD, &m_mTM);
+	DEVICE->SetTransform(D3DTS_WORLD, &m_Transform->GetmTM() );
 	m_pMesh->DrawSubset(0);
 //	DEVICE->SetTransform(D3DTS_WORLD, &m_mVTM);
 	m_pVarrelMesh->DrawSubset(0);

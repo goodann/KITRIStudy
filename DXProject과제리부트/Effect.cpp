@@ -34,6 +34,8 @@ D3DXVECTOR3 Effect::fRandomVec3(D3DXVECTOR3 _min, D3DXVECTOR3 _max)
 
 Effect::Effect()
 {
+	m_pVB = nullptr;
+	
 }
 
 

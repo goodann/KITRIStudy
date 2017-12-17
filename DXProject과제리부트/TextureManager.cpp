@@ -12,13 +12,13 @@ TextureManager::~TextureManager()
 	Release();
 }
 
-MyTexture * TextureManager::GetTexture(string _name)
+MyTexture * TextureManager::GetTexture(string _name, D3DXCOLOR _color)
 {
 	if (m_mapTextures[_name] != nullptr) {
 		return m_mapTextures[_name];
 	}
 	MyTexture* pTexture = new MyTexture;
-	pTexture->Init(_name);
+	pTexture->Init(_name, _color);
 	return (m_mapTextures[_name] = pTexture);
 }
 

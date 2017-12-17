@@ -93,9 +93,18 @@ void CubeObject::Update(float dTime)
 	D3DXMatrixTranslation(&m_mTrans, m_vPos.x, m_vPos.y, m_vPos.z);
 	D3DXMatrixTranslation(&m_mPivotPoint, m_vPivotPoint.x, m_vPivotPoint.y, m_vPivotPoint.z);
 	D3DXMatrixInverse(&m_mInversPivotPoint, nullptr, &m_mPivotPoint);
+
 	m_Transform->Update(dTime);
-	if (m_ParentTM) {
-		m_Transform->SetmTM(m_mInversPivotPoint*m_mScale *m_mPivotAxis* m_mRot *  m_mTrans*(*m_ParentTM)); 
+	//if (m_ParentTM) {
+		//m_Transform->SetmTM(m_mInversPivotPoint*m_mScale *m_mPivotAxis* m_mRot *  m_mTrans*(*m_ParentTM)); 
+		//m_Transform->SetvDir( )
+			//D3DXVec3TransformNormal(&m_vDir, &m_OrgvDir, &m_mRot);
+	//D3DXVec3Normalize(&m_vDir, &m_vDir);
+	if(m_Parent){
+		m_Transform->SetmTM(m_mInversPivotPoint*m_mScale *m_mPivotAxis* m_mRot *  m_mTrans*(m_Parent->GetTransform()->GetmTM()));
+		//m_Transform->SetmTM(m_mInversPivotPoint*m_mScale *m_mPivotAxis* m_mRot *  m_mTrans*(*m_ParentTM)); 
+		D3DXVec3TransformNormal(&(m_Transform->GetvDir()), &(m_Transform->GetOrgvDir()), &(m_Parent->GetTransform()->GetmRot()));
+		D3DXVec3Normalize(&(m_Transform->GetvDir()), &(m_Transform->GetvDir()));
 	}
 	else {
 		//m_mTM = m_mScale * m_mRot * m_mTrans;

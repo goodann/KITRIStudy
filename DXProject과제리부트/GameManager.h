@@ -28,6 +28,10 @@ public:
 	Windmill* m_WindMill;
 	Boss* m_Boss;
 	AirPlane* m_pAirPlane;
+	SpriteEffect* m_SpriteEffect;
+	ParticleEffect* m_ParticleEffect;
+
+
 	LPDIRECT3DTEXTURE9 m_pBottomTexture;
 	LPDIRECT3DTEXTURE9 m_pGrassTexture;
 	LPDIRECT3DTEXTURE9 m_pMaskTexture;

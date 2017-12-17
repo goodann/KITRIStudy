@@ -330,7 +330,8 @@ void TrianglePlayer::Update(float dTime)
 					D3DXVECTOR3 vBulletPos = D3DXVECTOR3(1.0f / 3, 2.0f / 3, 1.0f / 3);
 					D3DXVec3TransformCoord(&vBulletPos, &vBulletPos, &m_Transform->GetmTM());
 					OBJECTINFO _info;
-					ZeroMemory(&_info, sizeof(_info));
+					//ZeroMemory(&_info, sizeof(_info));
+					ZeroInfo(&_info);
 					_info.vDir = VEC3FORWARD;
 					
 					_info.vPos = vBulletPos;
@@ -409,6 +410,7 @@ void TrianglePlayer::Update(float dTime)
 				if (c->IsSphereCollision(*b)) {
 					//delete *b;
 					(*b)->SetbLife(false);
+					(*b)->SetbDead(true);
 					//m_bullet.erase(b);
 					break;
 				}

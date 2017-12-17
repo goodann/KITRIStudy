@@ -54,6 +54,7 @@ void baseObject::Update(float dTime)
 	}
 	if (m_alpha <= 0)
 		m_bDead = true;
+	
 	m_Transform->Update(dTime);
 }
 

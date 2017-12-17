@@ -29,7 +29,7 @@ void Tank::Init(void)
 	//m_vRot = D3DXVECTOR3(0, 0, 0);
 	//m_vScale = D3DXVECTOR3(1, 1, 1);
 	//m_voldDir = m_vDir = D3DXVECTOR3(0, 0, 1);
-	m_rotateSpeed =0.5f;
+	m_rotateSpeed =0.25f;
 	//info.vPos = m_vPos;
 	//info.vRot = m_vRot;
 
@@ -90,7 +90,7 @@ void Tank::Update(float dtime)
 
 		if (INPUTMGR->GetKey(VK_RIGHT))
 		{
-			m_Transform->Rotate(D3DXVECTOR3(0, D3DX_PI * m_rotateSpeed*dtime, 0));
+			m_Transform->Rotate(D3DXVECTOR3(0, D3DX_PI *m_rotateSpeed*dtime, 0));
 		}
 
 

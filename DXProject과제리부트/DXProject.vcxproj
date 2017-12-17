@@ -163,8 +163,11 @@
     <ClCompile Include="MouseRay.cpp" />
     <ClCompile Include="MyTexture.cpp" />
     <ClCompile Include="myTimer.cpp" />
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleEffect.cpp" />
     <ClCompile Include="Shotable.cpp" />
     <ClCompile Include="ShotableObject.cpp" />
+    <ClCompile Include="SpriteEffect.cpp" />
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="Tank.cpp" />
     <ClCompile Include="TankBody.cpp" />
@@ -206,8 +209,11 @@
     <ClInclude Include="MySingleton.h" />
     <ClInclude Include="MyTexture.h" />
     <ClInclude Include="myTimer.h" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleEffect.h" />
     <ClInclude Include="Shotable.h" />
     <ClInclude Include="ShotableObject.h" />
+    <ClInclude Include="SpriteEffect.h" />
     <ClInclude Include="Star.h" />
     <ClInclude Include="Tank.h" />
     <ClInclude Include="TankBody.h" />

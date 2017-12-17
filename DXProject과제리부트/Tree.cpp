@@ -261,7 +261,7 @@ void Tree::Render(void)
 
 
 	DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
-	DEVICE->SetRenderState(D3DRS_ALPHAREF, DWORD(0.1f * 255));
+	DEVICE->SetRenderState(D3DRS_ALPHAREF, DWORD(0.3f * 255));
 
 
 

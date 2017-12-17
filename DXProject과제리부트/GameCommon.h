@@ -32,7 +32,7 @@ using namespace std;
 #define VEC3FORWARD		D3DXVECTOR3(0,0,1)
 #define VEC3UP		D3DXVECTOR3(0,1,0)
 #define VEC3RIGHT		D3DXVECTOR3(1,0,0)
-
+#define GRAVITY D3DXVECTOR3(0, -9.8f, 0)
 
 // ΩÃ±€≈œ∆–≈œ
 #define SINGLETON_FUNC(mgr) \
@@ -169,10 +169,21 @@ POINT GetClientPoint(void);
 #include "ShotableObject.h"
 #include "CollisonSphere.h"
 #include "CollisionManager.h"
+
+
+#include "Effect.h"
+#include "ParticleEffect.h"
+
+#include "SpriteEffect.h"
+#include "Particle.h"
+
+
+
+
 #include "Windmill.h"
 
 #include"Terrain.h"
-#include "Effect.h"
+
 
 
 #include "Enemy.h"
@@ -211,4 +222,3 @@ POINT GetClientPoint(void);
 #define FRAMEMGR	FrameManager::GetInstance()
 #define COLLMGR		CollisionManager::GetInstance()
 #define TEXMGR TextureManager::GetInstance()
-#define GRAVITY D3DXVECTOR3(0, -9.8f, 0)

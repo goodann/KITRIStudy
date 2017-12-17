@@ -101,8 +101,8 @@
 
 void Bullet::Init(OBJECTINFO _info)
 {
-	m_Speed = 40.0f;
-	_info.Pollygon = PG_BOX;
+	m_Speed = 20.0f;
+	//_info.Pollygon = PG_BOX;
 	_info.Pollygon = PG_CYLINDER;
 	_info.fRadius = D3DXVec3Length(&_info.vScale);
 	
@@ -121,16 +121,7 @@ void Bullet::Init(OBJECTINFO _info)
 void Bullet::Update(float dtime)
 {
 	//D3DXVECTOR4 aa;
-	if (m_Transform->GetvPos().y <= 0 && m_isTankBullet) {
-		for (auto& a : GAMEMGR->m_Tree) {
-			D3DXVECTOR3 v =(a->GetTransform()->GetvPos() - m_Transform->GetvPos());
-			float sq = D3DXVec3LengthSq(&v);
-			if (sq < 100) {
-				a->SomerSault();
-			}
-		}
-		m_bLife = false;
-	}
+	
 	D3DXVECTOR3 pos = m_Transform->GetvPos();
 	D3DXVECTOR3 voidDir = m_Transform->GetOrgvDir();
 	D3DXVECTOR3 dir = m_Transform->GetvDir();
@@ -139,8 +130,27 @@ void Bullet::Update(float dtime)
 	
 	m_Gravity += GRAVITY*dtime;
 	m_Transform->SetvPos(pos);
-	if (D3DXVec3Length(&pos) > 40)
+
+	if (m_Transform->GetvPos().y <= 0) {
+		if (m_isTankBullet) {
+			for (auto& a : GAMEMGR->m_Tree) {
+				D3DXVECTOR3 v = (a->GetTransform()->GetvPos() - m_Transform->GetvPos());
+				float sq = D3DXVec3LengthSq(&v);
+				float r=7;
+				if (sq < r*r) {
+					a->SomerSault();
+				}
+			}
+		}
 		m_bLife = false;
+		m_bDead = true;
+
+	}
+	if (D3DXVec3Length(&pos) > 40) {
+		m_bLife = false;
+		m_bDead = true;
+
+	}
 
 	baseObject::Update(dtime);
 }
@@ -164,6 +174,30 @@ void Bullet::Render(void)
 
 void Bullet::Release(void)
 {
+	OBJECTINFO info;
+	spriteInfo spInfo;
+	ZeroInfo(&info);
+
+
+	info.Pollygon = PG_VOID;
+	info.vPos = m_Transform->GetvPos();
+	spInfo.ObjInfo = info;
+	if (m_isTankBullet)
+		spInfo.ObjInfo.vScale *= 10;
+	else
+		spInfo.ObjInfo.vScale *= 0.3f;
+	spInfo.bLoop = false;
+	spInfo.fTotalTime = 1.0f;
+	spInfo.color = D3DXCOLOR(1, 1, 1, 1);
+	spInfo.pTexName = "Explosion.png";
+	spInfo.nSpriteCntX = 5;
+	spInfo.nSpriteCntY = 3;
+
+	
+
+
+	SpriteEffect* _SpriteEffect = new SpriteEffect;
+	_SpriteEffect->Init(spInfo);
 }
 
 Bullet::Bullet()
@@ -176,5 +210,7 @@ Bullet::Bullet()
 
 Bullet::~Bullet()
 {
+	Release();
 	GAMEMGR->m_pTriPlayer->m_bullet.remove(this);
+	GAMEMGR->m_Tank->m_Top.m_bullet.remove(this);
 }

@@ -121,8 +121,52 @@ void GameManager::Init(void)
 	m_Terrain = new Terrain;
 	m_Terrain->Init();
 
+	//////////////////////////////
+	//spriteInfo spInfo;
+	//info.Pollygon = PG_VOID;
+	//spInfo.bLoop = true;
+	//spInfo.fTotalTime = 5.0f;
+	//spInfo.color = D3DXCOLOR(1, 1, 1, 1);
+	//spInfo.pTexName = "Explosion.png";
+	//spInfo.nSpriteCntX = 5;
+	//spInfo.nSpriteCntY = 3;
 
 
+	//info.vPos = D3DXVECTOR3(0, 2, 0);
+	//spInfo.ObjInfo = info;
+
+	//
+	//m_SpriteEffect = new SpriteEffect;
+	//m_SpriteEffect->Init(spInfo);
+
+	/////////////////////////////////////
+
+	ParticleInfo ptInfo;
+	ParticleEffectInfo preInfo;
+
+	info.vPos = D3DXVECTOR3(5, 0, 5);
+	//info.vPos = D3DXVECTOR3(0, 0, 0);
+	preInfo.lifeTime = 2.0f;
+	preInfo.minLifeTime = 0.5f;
+	preInfo.maxLifeTime = 2.5f;
+	preInfo.vPos = D3DXVECTOR3(0, 0, 0);
+	preInfo.vMinPos = D3DXVECTOR3(-1, -1, -1);
+	preInfo.vMaxPos = D3DXVECTOR3(1, 1, 1);
+
+
+	preInfo.vVelocity = D3DXVECTOR3(0, 20, 0);
+	preInfo.vMinVelocity = D3DXVECTOR3(-5, 0, -5);
+	preInfo.vMaxVelocity = D3DXVECTOR3(5, 0, 5);
+	preInfo.sFileName = "DarknessFlash.png";
+	ptInfo.EffectInfo = preInfo;
+	ptInfo.MaxParticleCount = 50;
+	ptInfo.ParticleMakeCycle = 0.1f;
+	ptInfo.ObjInfo = info;
+	ptInfo.EffectInfo.ObjInfo = info;
+	ptInfo.EffectInfo.UseGravity = true;
+	Particle* newPt = new Particle;
+	info.vPos = D3DXVECTOR3(0, 1, 1);
+	newPt->Init(ptInfo);
 
 	for (int i = 0; i < 50; i++) {
 		int x = rand() % 50;
@@ -350,12 +394,16 @@ void GameManager::Update(float dTime)
 	m_vTexPos.x += dTime*0.01f;
 	m_mTexTrans._31 = m_vTexPos.x;
 
+	//m_SpriteEffect->Update(dTime);
+
+
 	if (m_CameraType == 1) {
 		m_FPSCamera.Update(dTime);
 	}
 	//else if (m_CameraType == 2) {
 		m_TargetCamera.Update(dTime);
 	//}
+		
 
 }
 
@@ -426,9 +474,10 @@ void GameManager::RenderObject(void)
 	for (auto& a : m_ListObj) {
 		if ((baseObject*)m_pTriPlayer == a)
 			continue;
-		a->Render();
+			a->Render();
 	}
 	// HELPER
+	//m_SpriteEffect->Render();
 	m_pTriPlayer->Render();
 }
 
