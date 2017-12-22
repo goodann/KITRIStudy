@@ -13,32 +13,32 @@ void AirPlane::Update(float dTime)
 	
 
 
-	if (m_LBoom == nullptr) {
-		m_LBoom = new AirPlaneBoom;
-		OBJECTINFO info;
-		ZeroInfo(&info);
-		info.vPos = m_Transform->GetvPos();
-		info.vRot = m_Transform->GetvRot();
-		info.vScale = VEC3ONE ;
-		info.fRadius = 1.0f;
-		info.Parent = this;
-		m_LBoom->Init(info);
-		//m_LBoom->Init(m_Transform->GetvPos(), m_Transform->GetvRot(), VEC3ONE*10);
-	}
-	if (m_RBoom == nullptr) {
-		m_RBoom = new AirPlaneBoom;
-		OBJECTINFO info;
-		ZeroInfo(&info);
-		info.vPos = m_Transform->GetvPos();
-		info.vRot = m_Transform->GetvRot();
-		info.vScale = VEC3ONE ;
-		info.fRadius = 1.0f;
-		info.Parent = this;
-		m_RBoom->Init(info);
-		//m_RBoom->Init(m_Transform->GetvPos(), m_Transform->GetvRot(), VEC3ONE*10);
-	}
-	m_LBoom->Update(dTime);
-	m_RBoom->Update(dTime);
+	//if (m_LBoom == nullptr) {
+	//	m_LBoom = new AirPlaneBoom;
+	//	OBJECTINFO info;
+	//	ZeroInfo(&info);
+	//	info.vPos = m_Transform->GetvPos();
+	//	info.vRot = m_Transform->GetvRot();
+	//	info.vScale = VEC3ONE ;
+	//	info.fRadius = 1.0f;
+	//	info.Parent = this;
+	//	m_LBoom->Init(info);
+	//	//m_LBoom->Init(m_Transform->GetvPos(), m_Transform->GetvRot(), VEC3ONE*10);
+	//}
+	//if (m_RBoom == nullptr) {
+	//	m_RBoom = new AirPlaneBoom;
+	//	OBJECTINFO info;
+	//	ZeroInfo(&info);
+	//	info.vPos = m_Transform->GetvPos();
+	//	info.vRot = m_Transform->GetvRot();
+	//	info.vScale = VEC3ONE ;
+	//	info.fRadius = 1.0f;
+	//	info.Parent = this;
+	//	m_RBoom->Init(info);
+	//	//m_RBoom->Init(m_Transform->GetvPos(), m_Transform->GetvRot(), VEC3ONE*10);
+	//}
+	//m_LBoom->Update(dTime);
+	//m_RBoom->Update(dTime);
 	static float angle = 0.0f;
 	angle += dTime*D3DX_PI * 40;
 	D3DXMatrixRotationZ(&m_mPPTM, angle);
@@ -59,10 +59,10 @@ void AirPlane::Update(float dTime)
 void AirPlane::Render(void)
 {
 	m_Transform->Render();
-	if(m_LBoom)
-	m_LBoom->Render();
-	if(m_RBoom)
-	m_RBoom->Render();
+	//if(m_LBoom)
+	//m_LBoom->Render();
+	//if(m_RBoom)
+	//m_RBoom->Render();
 }
 
 void AirPlane::Release(void)

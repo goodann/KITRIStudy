@@ -15,6 +15,14 @@ class WorldCamera
 
 	bool				m_bRButtonDown;
 
+	D3DXMATRIX m_mProjUI;
+	D3DXMATRIX m_mViewUI;
+	POINT m_OrgPoint;
+	float m_fFovy;
+	float m_fAspect;
+	float m_fNear;
+	float m_fFar;
+
 public:
 
 	D3DXMATRIX getBillBoard(void) {
@@ -23,6 +31,12 @@ public:
 	void SetUp(D3DXVECTOR3 vEye);
 	void ViewTransform(void);
 	void ProjectionTransform(void);
+
+	void LocalVectorUpdate(void);
+	void UIModeOn(void);
+	void UIModeOff(void);
+
+
 	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 public:

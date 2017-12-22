@@ -49,13 +49,17 @@ void FPSCamera::ViewTransform(void)
 {
 	//D3DXVec3TransformNormal(&m_vLook, &m_vLook, &m_pTarget->GetmRot());
 	D3DXMatrixLookAtLH(&m_mView, &(m_pTarget->GetvPos()+ m_vHead), &m_vLook, &m_vOrgUp);
-	
+	D3DXMatrixIdentity(&m_mViewUI);
 	DEVICE->SetTransform(D3DTS_VIEW, &m_mView);
 }
 
 void FPSCamera::ProjectionTransform(void)
 {
-	D3DXMatrixPerspectiveFovLH(&m_mProj, m_fFovy, m_fAspect, m_fNear, m_fFar);
+	float tFov = m_fFovy;
+	if (GAMEMGR->m_bZoom)
+		tFov /= 2;
+	D3DXMatrixPerspectiveFovLH(&m_mProj, tFov, m_fAspect, m_fNear, m_fFar);
+	D3DXMatrixOrthoOffCenterLH(&m_mProjUI, 0, WINMGR->GetWidth(), WINMGR->GetHeight(), 0, 1.0f, 100.0f);
 	DEVICE->SetTransform(D3DTS_PROJECTION, &m_mProj);
 }
 
@@ -72,6 +76,22 @@ void FPSCamera::LocalVectorUpdate(void)
 	D3DXVec3Normalize(&m_vUp, &m_vUp);
 	ViewTransform();
 	ProjectionTransform();
+}
+
+void FPSCamera::UIModeOn(void)
+{
+	DEVICE->SetTransform(D3DTS_VIEW, &m_mViewUI);
+	DEVICE->SetTransform(D3DTS_PROJECTION, &m_mProjUI);
+	DEVICE->SetRenderState(D3DRS_LIGHTING, false);
+	DEVICE->SetRenderState(D3DRS_FOGENABLE, false);
+	DEVICE->SetRenderState(D3DRS_ZENABLE, false);
+}
+
+void FPSCamera::UIModeOff(void)
+{
+	DEVICE->SetTransform(D3DTS_VIEW, &m_mView);
+	DEVICE->SetTransform(D3DTS_PROJECTION, &m_mProj);
+	DEVICE->SetRenderState(D3DRS_ZENABLE, true);
 }
 
 void FPSCamera::RotateX(float angle)

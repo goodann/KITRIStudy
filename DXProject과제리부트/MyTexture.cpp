@@ -18,7 +18,7 @@ void MyTexture::Init(string _name, D3DXCOLOR _color) {
 		sprintf(temp, "Texture Load File : %s ", m_Name.c_str());
 		MessageBox(nullptr, temp, "Fail", MB_OK);
 	}
-	m_width = (float)_info.Width;
+	m_Width = (float)_info.Width;
 	m_Height = (float)_info.Height;
 }
 

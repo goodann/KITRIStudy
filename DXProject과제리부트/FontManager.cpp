@@ -13,6 +13,65 @@ FontManager::~FontManager()
 	Release();
 }
 
+LPD3DXFONT FontManager::GetFonts(FONTTYPE enType)
+{
+
+	if (m_mapFonts[enType] != NULL)
+		return m_mapFonts[enType];
+
+	switch (enType)
+	{
+	case FT_DEFAULT:
+	{
+		D3DXFONT_DESC fd;
+		ZeroMemory(&fd, sizeof(D3DXFONT_DESC));
+
+		fd.Width = 6;
+		fd.Height = 12;
+		fd.Weight = FW_MEDIUM; // FW_BOLD
+		fd.CharSet = DEFAULT_CHARSET;
+		strcpy_s(fd.FaceName, "±º∏≤√º");
+
+		D3DXCreateFontIndirect(DEVICE, &fd,
+			&m_mapFonts[enType]);
+	}
+	break;
+
+	case FT_BOADER:
+	{
+		D3DXFONT_DESC fd;
+		ZeroMemory(&fd, sizeof(D3DXFONT_DESC));
+
+		fd.Width = 12;
+		fd.Height = 24;
+		fd.Weight = FW_BOLD; // FW_BOLD
+		fd.CharSet = DEFAULT_CHARSET;
+		strcpy_s(fd.FaceName, "±º∏≤√º");
+
+		D3DXCreateFontIndirect(DEVICE, &fd,
+			&m_mapFonts[enType]);
+	}
+	break;
+	case FT_UI:
+	{
+		D3DXFONT_DESC fd;
+		ZeroMemory(&fd, sizeof(D3DXFONT_DESC));
+
+		fd.Width = 10;
+		fd.Height = 20;
+		fd.Weight = FW_BOLD; // FW_BOLD
+		fd.CharSet = DEFAULT_CHARSET;
+		strcpy_s(fd.FaceName, "πŸ≈¡√º");
+
+		D3DXCreateFontIndirect(DEVICE, &fd,
+			&m_mapFonts[enType]);
+	}
+	break;
+	}
+
+	return m_mapFonts[enType];
+}
+
 void FontManager::Setup(void)
 {
 	D3DXFONT_DESC fd;

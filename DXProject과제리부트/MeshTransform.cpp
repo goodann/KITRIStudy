@@ -78,7 +78,7 @@ void MeshTransform::Render(void)
 {
 	DEVICE->SetTexture(0, GAMEMGR->m_pWhiteTexture);
 	if (m_MaterialCount == 0) {
-		DEVICE->SetTransform(D3DTS_WORLD, &m_mTM);
+		//DEVICE->SetTransform(D3DTS_WORLD, &m_mTM);
 		m_pMesh->DrawSubset(0);
 	}
 	else {

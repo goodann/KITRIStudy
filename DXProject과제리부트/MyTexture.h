@@ -3,7 +3,7 @@ class MyTexture
 {
 	GETTER(LPDIRECT3DTEXTURE9, Texture);
 	GETTER(string, Name);
-	GETTER(float, width);
+	GETTER(float, Width);
 	GETTER(float, Height);
 public:
 	//virtual void Init(string _info);

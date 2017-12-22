@@ -10,7 +10,8 @@ class FPSCamera
 	D3DXVECTOR3 m_vHoriz;
 	D3DXVECTOR3 m_vHead;
 	D3DXVECTOR3 m_vOrgHead;
-
+	D3DXMATRIX m_mProjUI;
+	D3DXMATRIX m_mViewUI;
 	float m_fFovy;
 	float m_fAspect;
 	float m_fNear;
@@ -26,6 +27,9 @@ public:
 	void ViewTransform(void);
 	void ProjectionTransform(void);
 	void LocalVectorUpdate(void);
+
+	void UIModeOn(void);
+	void UIModeOff(void);
 
 	void RotateX(float angle);
 	void RotateY(float angle);

@@ -41,13 +41,7 @@ void CubeObject::Init(OBJECTINFO _info)
 	m_vRot = _info.vRot;
 	m_vScale = _info.vScale;
 	m_Radius = _info.fRadius;
-	m_Parent = _info.Parent;
-	
-	if (m_Parent != nullptr) {
-		Transform* tf = _info.Parent->GetTransform();
-		if (tf!=nullptr)
-			m_ParentTM = &(tf->GetmTM());
-	}
+
 	m_RotateDir = true;
 	//D3DXCreateBox(DEVICE, 2, 2, 2, &m_pMesh, nullptr);
 	ZeroMemory(&m_Material, sizeof(m_Material));
@@ -118,13 +112,20 @@ void CubeObject::Render(void)
 	//DEVICE->SetRenderState(D3DRS_NORMALIZENORMALS, true);
 	//DEVICE->SetRenderState(D3DRS_LIGHTING, true); // 라이팅
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); // 컬링모드
-	DEVICE->SetTransform(D3DTS_WORLD, &m_mTM);
+	DEVICE->SetTransform(D3DTS_WORLD, &m_Transform->GetmTM());
 	DEVICE->SetMaterial(&m_Material);
 	m_Transform->Render();
 	//m_pMesh->DrawSubset(0);
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW); // 컬링모드
 	//DEVICE->SetRenderState(D3DRS_LIGHTING, false); // 라이팅
 	//DEVICE->SetRenderState(D3DRS_NORMALIZENORMALS, false);
+}
+
+void CubeObject::Render(D3DXMATRIX * pmTM)
+{
+	DEVICE->SetTransform(D3DTS_WORLD, &(m_Transform->GetmTM()*(*pmTM)));
+	DEVICE->SetMaterial(&m_Material);
+	m_Transform->Render();
 }
 
 void CubeObject::Release(void)

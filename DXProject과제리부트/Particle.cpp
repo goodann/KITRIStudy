@@ -18,6 +18,7 @@ void Particle::Update(float dTime)
 	fCurrTime += dTime;
 	if (fCurrTime > fOldTime) {
 		if ((int)m_listParticles.size() < m_info.MaxParticleCount) {
+			m_info.EffectInfo.ObjInfo.Parent = this;
 			CreateParticle(m_info.EffectInfo);
 			fOldTime = fCurrTime + m_info.ParticleMakeCycle;
 		}
@@ -33,12 +34,16 @@ void Particle::Update(float dTime)
 			++itor;
 		}
 	}
+	static float a;
+	a = 3.14f*dTime;
+	m_Transform->Rotate(D3DXVECTOR3(0, a, 0));
 	baseObject::Update(dTime);
 }
 
 void Particle::Render()
 {
 	//baseObject::Render();
+	//DEVICE->SetTransform(D3DTS_WORLD, &m_Transform->GetmTM());
 	for (auto& p : m_listParticles) {
 		p->Render();
 	}
@@ -69,6 +74,8 @@ void Particle::CreateParticle(ParticleEffectInfo _info)
 	//_info.vMaxVelocity = D3DXVECTOR3(1, 0, 1);
 	ParticleEffect *p = new ParticleEffect;
 	p->Init(_info);
+	
+	
 	m_listParticles.push_back(p);
 }
 

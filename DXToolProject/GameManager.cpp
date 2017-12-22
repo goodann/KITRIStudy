@@ -139,7 +139,7 @@ void GameManager::Update(float dTime)
 	}
 	if (INPUTMGR->GetKeyUp('5')) {
 		m_ToolMode++;
-		if (m_ToolMode > 2)
+		if (m_ToolMode > 3)
 			m_ToolMode = 0;
 
 	}
@@ -168,7 +168,7 @@ void GameManager::Update(float dTime)
 		ray.RayTransform(view);
 
 		for (auto& i : m_ListObj) {
-			if (m_ToolMode != 0) {
+			if (m_ToolMode != 0 && m_ToolMode!=3) {
 				if (i->tag == "Terrain") {
 					continue;
 				}
@@ -219,6 +219,9 @@ void GameManager::Update(float dTime)
 				m_SelectedObject->SetbLife(false);
 			}
 		}
+		if (m_ToolMode == 3) {
+
+		}
 
 		//D3DXVECTOR3 aa = m_Terrain.GetPickPos(ray);
 		//m_pCubeObject->m_vPos = aa;
@@ -257,6 +260,39 @@ void GameManager::Update(float dTime)
 					}
 				}
 				m_SelectedObject->GetTransform()->SetvPos(m_ClickedPos + VEC3UP * 2);
+
+			}
+		}
+		if (m_ToolMode == 3) {
+			if (m_SelectedObject) {
+				POINT pt;
+				pt = GetClientPoint();
+				MouseRay ray;
+				ray.CreateViewSpaceRay((int)pt.x, (int)pt.y);
+				D3DXMATRIX view;
+				DEVICE->GetTransform(D3DTS_VIEW, &view);
+				ray.RayTransform(view);
+				for (auto& i : m_ListObj) {
+					if (m_ToolMode != 0) {
+						if (i->tag != "Terrain") {
+							continue;
+						}
+					}
+					MouseRay ray2 = ray;
+					D3DXMATRIX m = i->GetTransform()->GetmTM();
+					//ray2.RayTransform(m);
+					if (i->PickingCheck(i, &m_ClickedPos, ray2)) {
+
+						//m_SelectedObject = i;
+						m_bClicked = true;
+						break;
+					}
+					else {
+						m_bClicked = false;
+						m_ClickedPos = D3DXVECTOR3(0, 0, 0);
+					}
+				}
+				m_SelectedObject->GetTransform()->SetvPos(m_ClickedPos);
 
 			}
 		}
@@ -320,7 +356,7 @@ void GameManager::Render(void)
 
 	// HELPER
 	m_Axis.Render();
-	m_Grid.Render();
+	//m_Grid.Render();
 	///ground
 	RenderBottom();
 	RenderRiver();

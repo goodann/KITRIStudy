@@ -213,7 +213,7 @@ void TankTop::Update(float dtime,bool _isBoarding)
 
 			//_info.vDir = m_Transform->GetvDir() + D3DXVECTOR3(0, 0.5f, 0);
 			//D3DXVec3Normalize(&(_info.vDir), &(_info.vDir));
-			_info.Parent = this;
+			//_info.Parent = this;
 			newBullet->Init(_info);
 
 

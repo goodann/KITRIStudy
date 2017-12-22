@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="DXProject">
+      <UniqueIdentifier>{36050138-f31c-4322-a12a-beded36f6176}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DXProject\Manager">
+      <UniqueIdentifier>{72b87d79-1df5-4ffb-af82-58311eb8767f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DXProject\Objects">
+      <UniqueIdentifier>{c3be0a90-811b-41db-a0d3-9dddf554010e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DXProject\Helper">
+      <UniqueIdentifier>{70953d92-4721-4953-a85f-720dcad5a4c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DXProject\Objects\property">
+      <UniqueIdentifier>{a0633bf9-cf32-4baa-bc1c-f8cb03149614}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DXProject\Objects\property\Transform">
+      <UniqueIdentifier>{be3dc834-cf90-4ff4-948f-b038e80d5b37}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>DXProject\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowManager.cpp">
+      <Filter>DXProject\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="WinMain.cpp">
+      <Filter>DXProject</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectManager.cpp">
+      <Filter>DXProject\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>DXProject\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldAxis.cpp">
+      <Filter>DXProject\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldCamera.cpp">
+      <Filter>DXProject\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldGrid.cpp">
+      <Filter>DXProject\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeObject.cpp">
+      <Filter>DXProject\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="FontManager.cpp">
+      <Filter>DXProject\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameManager.cpp">
+      <Filter>DXProject\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshTransform.cpp">
+      <Filter>DXProject\Objects\property\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>DXProject\Objects\property\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexTransform.cpp">
+      <Filter>DXProject\Objects\property\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="baseObject.cpp">
+      <Filter>DXProject\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisonSphere.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="myTimer.cpp">
+      <Filter>DXProject\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="MyTexture.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="AirPlane.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Pickable.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseRay.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GameCommon.cpp">
+      <Filter>DXProject</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="WindowManager.h">
+      <Filter>DXProject\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>DXProject\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCommon.h">
+      <Filter>DXProject</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectManager.h">
+      <Filter>DXProject\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>DXProject\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldAxis.h">
+      <Filter>DXProject\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldCamera.h">
+      <Filter>DXProject\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldGrid.h">
+      <Filter>DXProject\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeObject.h">
+      <Filter>DXProject\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="FontManager.h">
+      <Filter>DXProject\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameManager.h">
+      <Filter>DXProject\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshTransform.h">
+      <Filter>DXProject\Objects\property\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>DXProject\Objects\property\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexTransform.h">
+      <Filter>DXProject\Objects\property\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="baseObject.h">
+      <Filter>DXProject\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MySingleton.h">
+      <Filter>DXProject\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisonSphere.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="myTimer.h">
+      <Filter>DXProject\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="MyTexture.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="AirPlane.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Pickable.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseRay.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

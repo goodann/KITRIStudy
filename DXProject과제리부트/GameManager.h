@@ -30,6 +30,7 @@ public:
 	AirPlane* m_pAirPlane;
 	SpriteEffect* m_SpriteEffect;
 	ParticleEffect* m_ParticleEffect;
+	UI* m_PlayerUI;
 
 
 	LPDIRECT3DTEXTURE9 m_pBottomTexture;
@@ -50,6 +51,9 @@ public:
 	bool				m_bWire;
 	bool		m_Collision;
 	bool m_FireOn;
+	bool m_bZoom;
+	bool m_bInfomation;
+
 	D3DXCOLOR m_sky;
 	D3DXVECTOR3 DebugVec1;
 	D3DXVECTOR3 DebugVec2;
@@ -57,7 +61,7 @@ public:
 
 public:
 	list<baseObject*> m_ListObj;
-
+	list<UI*> m_ListUI;
 	void CreateObejct(baseObject* _obj) { m_ListObj.push_back(_obj); }
 	void DeleteObejct(baseObject* _obj) { m_ListObj.remove(_obj); }
 
@@ -68,6 +72,8 @@ public:
 	void DebugView(void);
 	void WndProc(HWND hWnd,
 			UINT iMsg, WPARAM wParam, LPARAM lParam);
+	bool m_bGrid;
+	bool m_bAsix;
 
 public:
 	//D3DXMATRIX GetCamBillboardTM(void) {		return m_WorldCamera.getBillBoard();}
@@ -82,6 +88,10 @@ public:
 	void Release(void);
 	void Loop(void);
 	void ViewPortMinimap(void);
+	void OnGridButton(void*);
+	void OnAsixButton(void*);
+	//void OnAsixButton(void*);
 };
+
 
 

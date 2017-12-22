@@ -339,7 +339,7 @@ void TrianglePlayer::Update(float dTime)
 					_info.vScale = m_Transform->GetvScale()*0.3f;
 					_info.vDir = m_Transform->GetvDir()+D3DXVECTOR3(0,0.5f,0);
 					D3DXVec3Normalize(&(_info.vDir), &(_info.vDir));
-					_info.Parent = this;
+					//_info.Parent = this;
 					newBullet->Init(_info);
 					//newBullet->Init(m_vPos, m_vRot, m_vScale*0.3f);
 
@@ -442,6 +442,7 @@ void TrianglePlayer::Update(float dTime)
 	D3DXMATRIX m_tmp = m_Transform->GetmTM();
 	m_Transform->SetmTM(m_Transform->GetmScale() * m_mat2* m_Transform->GetmRot()  * m_Transform->GetmTrans());
 
+
 	m_head.Update(dTime);
 	m_LArm.Update(dTime);
 	m_RArm.Update(dTime);
@@ -468,6 +469,8 @@ void TrianglePlayer::Render(void)
 {
 	//m_mRenTM = m_mTM;
 	
+
+
 
 	DEVICE->SetRenderState(D3DRS_LIGHTING, true); // 라이팅
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); // 컬링모드
@@ -503,9 +506,79 @@ void TrianglePlayer::Render(void)
 	m_Buff.Render();
 
 	//DEVICE->DrawPrimitiveUP(D3DPT_LINELIST, 1, m_dirLine, sizeof(D3DFVF_XYZ_COLOR));
+	/////////////replect
 
 
+	D3DLIGHT9 orgl, l;
+	DEVICE->GetLight(0, &orgl);
+
+	l = orgl;
+
+	D3DXVECTOR3 v = l.Direction;
+	v.x = -v.x;
+	v.z = -v.z;
+	l.Direction = v;
+	DEVICE->SetLight(0, &l);
+
+
+	D3DXMATRIX out;
+	D3DXPLANE plane(0, 1, 0, 0);
+	D3DXVECTOR3 riverPos = m_Transform->GetvPos();
+	D3DXVECTOR3 riverNor = -m_Transform->GetvPos();
+	riverPos.y = 0;
 	
+	//D3DXPlaneFromPointNormal(&plane, &riverPos, &D3DXVECTOR3(0.2, -1, 1));
+	D3DXVec3Normalize(&riverNor, &riverNor);
+	riverNor.y = -1;
+	D3DXVec3Normalize(&riverNor, &riverNor);
+	D3DXPlaneFromPointNormal(&plane, &riverPos, &riverNor);
+	
+	D3DXMatrixReflect(&out, &plane);
+
+	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW); // 컬링모드
+	{
+		DEVICE->SetRenderState(D3DRS_ALPHABLENDENABLE, true);
+		//DEVICE->SetRenderState(D3DRS_ZWRITEENABLE, false);
+		DEVICE->SetRenderState(D3DRS_STENCILENABLE, true);
+		DEVICE->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_EQUAL);
+		DEVICE->SetRenderState(D3DRS_STENCILREF, 1);
+		DEVICE->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_KEEP);
+	}
+	{
+			DEVICE->SetRenderState(D3DRS_FOGENABLE, TRUE);				  // 안개On
+			DEVICE->SetRenderState(D3DRS_FOGCOLOR, D3DXCOLOR(0, 0, 0, 1)); // 안개색상
+			
+																		   // 안개 옵션 : 버텍스 선형 안개
+			
+			
+			float sp = 0.0f;
+			float ep = 20.0f;
+			DEVICE->SetRenderState(D3DRS_FOGTABLEMODE, D3DFOG_LINEAR);	// 선형안개
+			DEVICE->SetRenderState(D3DRS_FOGSTART, *(DWORD*)(&sp));		// 안개 시작점
+			DEVICE->SetRenderState(D3DRS_FOGEND, *(DWORD*)(&ep));		// 안개 끝점
+			DEVICE->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_SELECTARG1);
+			//DEVICE->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+			DEVICE->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+			DEVICE->SetTextureStageState(1, D3DTSS_ALPHAOP, D3DTOP_DISABLE);
+
+	}
+	DEVICE->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+	DEVICE->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+	DEVICE->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_CONSTANT);
+	DEVICE->SetTextureStageState(0, D3DTSS_CONSTANT, D3DXCOLOR(1, 1, 1, 0.5));
+	DEVICE->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	DEVICE->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
+	m_head.Render(&out);
+	m_LArm.Render(&out);
+	m_RArm.Render(&out);
+	m_Body.Render(&out);
+	m_LLeg.Render(&out);
+	m_RLeg.Render(&out);
+	m_Buff.Render(&out);
+
+	DEVICE->SetRenderState(D3DRS_SPECULARENABLE, false);
+	DEVICE->SetRenderState(D3DRS_STENCILENABLE, false);
 	DEVICE->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 	DEVICE->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_SELECTARG1);
 	DEVICE->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
@@ -513,6 +586,9 @@ void TrianglePlayer::Render(void)
 	DEVICE->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO);
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW); // 컬링모드
+	DEVICE->SetLight(0, &orgl);
+
+	DEVICE->SetRenderState(D3DRS_FOGENABLE, false);
 	//m_Transform->SetmTM(m_tmp);
 	for (auto& a : m_bullet) {
 		a->Render();

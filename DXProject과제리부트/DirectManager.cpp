@@ -28,7 +28,7 @@ void DirectManager::CreateDirect3D(void)
 		d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;		// 스왑종류
 		d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; // 무조건 그려라
 		d3dpp.EnableAutoDepthStencil = TRUE;			// 깊이버퍼 사용 유무
-		d3dpp.AutoDepthStencilFormat = D3DFMT_D16;		// 깊어버퍼 사용시만 셋팅
+		d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;		// 깊어버퍼 사용시만 셋팅
 
 		m_D3D->CreateDevice(
 			D3DADAPTER_DEFAULT,		// 비디오 어댑터 디폴트 모니터

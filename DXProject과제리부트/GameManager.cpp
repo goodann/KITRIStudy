@@ -47,21 +47,6 @@ void GameManager::Init(void)
 	D3DLIGHT9 Light;
 	ZeroMemory(&Light, sizeof(Light));
 	Light.Type = D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL;//태양광
-	/*
-	Light.Position = D3DXVECTOR3(0, 10, 0);
-	Light.Range = 15.0f;
-
-
-	Light.Phi = D3DXToRadian(80.0f);
-	Light.Theta = D3DXToRadian(40.0f);
-
-	Light.Falloff = 2.0f;
-
-	D3DXVECTOR3 dir = D3DXVECTOR3(1, -1, 1);
-	D3DXVec3Normalize(&dir,&dir);
-	Light.Direction = dir;
-	*/
-
 
 	Light.Diffuse = D3DXCOLOR(1, 1, 1, 1);
 	Light.Direction = D3DXVECTOR3(1, -1, 1);
@@ -71,18 +56,14 @@ void GameManager::Init(void)
 	DEVICE->SetLight(0, &Light);
 	DEVICE->LightEnable(0, true);
 	DEVICE->SetRenderState(D3DRS_AMBIENT, D3DXCOLOR(0.2f, 0.2f, 0.2f, 1));
-
-
 	
 	m_Axis.Setup();
 	m_Grid.Setup();
 	
-	
-
 	m_pTriPlayer = new TrianglePlayer;
 
 	m_pTriPlayer->Init(D3DXVECTOR3(0, 1, 0), D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(1, 1, 1));
-	//m_Tree = new Tree;
+
 	m_FPSCamera.Init(m_pTriPlayer->GetTransform(), D3DXToRadian(45), (FLOAT)WINMGR->GetWidth() / WINMGR->GetHeight());
 	
 	OBJECTINFO info;
@@ -102,7 +83,7 @@ void GameManager::Init(void)
 	
 
 	m_pCubeObject = new CubeObject;
-	//OBJECTINFO info;
+
 	ZeroInfo(&info);
 	info.vScale = VEC3ONE;
 	info.Pollygon = PG_BOX;
@@ -121,31 +102,13 @@ void GameManager::Init(void)
 	m_Terrain = new Terrain;
 	m_Terrain->Init();
 
-	//////////////////////////////
-	//spriteInfo spInfo;
-	//info.Pollygon = PG_VOID;
-	//spInfo.bLoop = true;
-	//spInfo.fTotalTime = 5.0f;
-	//spInfo.color = D3DXCOLOR(1, 1, 1, 1);
-	//spInfo.pTexName = "Explosion.png";
-	//spInfo.nSpriteCntX = 5;
-	//spInfo.nSpriteCntY = 3;
 
-
-	//info.vPos = D3DXVECTOR3(0, 2, 0);
-	//spInfo.ObjInfo = info;
-
-	//
-	//m_SpriteEffect = new SpriteEffect;
-	//m_SpriteEffect->Init(spInfo);
-
-	/////////////////////////////////////
 
 	ParticleInfo ptInfo;
 	ParticleEffectInfo preInfo;
 
 	info.vPos = D3DXVECTOR3(5, 0, 5);
-	//info.vPos = D3DXVECTOR3(0, 0, 0);
+
 	preInfo.lifeTime = 2.0f;
 	preInfo.minLifeTime = 0.5f;
 	preInfo.maxLifeTime = 2.5f;
@@ -176,7 +139,7 @@ void GameManager::Init(void)
 		//x = 0;
 		//y=10;
 		Tree* newTree = new Tree;
-		//newTree->Init(D3DXVECTOR3((float)x, 0, (float)y), D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(1, 1, 1));
+
 		OBJECTINFO info;
 		ZeroInfo(&info);
 		info.vPos = D3DXVECTOR3((float)x, 0, (float)y);
@@ -195,6 +158,30 @@ void GameManager::Init(void)
 	}
 	m_WorldCamera.SetUp(D3DXVECTOR3(0, 10, -10));
 	FONTMGR->Setup();
+
+	UI* m_zoomUI = new UI;
+	m_zoomUI->Init(0, 0, "UI/ss.dds", &m_bZoom);
+	UI* m_SightUI = new UI;
+	m_SightUI->Init(WINMGR->GetWidth()/2-50, WINMGR->GetHeight() / 2-50, "UI/redSight.png",&m_bZoom,D3DXCOLOR(1,1,1,1));
+
+	UI* m_InfoUI = new UI;
+	m_InfoUI->Init(0,0,"UI/panel-info.png.png", &m_bInfomation);
+	m_PlayerUI = new UI;
+
+	UI* m_MapUI = new UI;
+	m_MapUI->Init(WINMGR->GetWidth() - 200, 0, "Field1.dds");
+	m_MapUI->SetvScale(D3DXVECTOR3(200, 200, 1));
+	m_PlayerUI->Init(0, 0, "UI/player.png", nullptr, D3DXCOLOR(1, 1, 1, 1),m_MapUI);
+
+	UICheckBox* Check1 = new UICheckBox;
+	Check1->Init(0, WINMGR->GetHeight() - 400, "UI/btn-check-false.png", "UI/btn-check-true.png", &m_bGrid);
+	Check1->SetText("그리드");
+	UICheckBox* Check2 = new UICheckBox;
+	Check2->Init(0, WINMGR->GetHeight() - 200, "UI/btn-check-false.png", "UI/btn-check-true.png", &m_bAsix);
+	Check2->SetText("축");
+
+	River* _river = new River;
+	_river->Init();
 }
 
 void GameManager::Update(float dTime)
@@ -267,9 +254,7 @@ void GameManager::Update(float dTime)
 		Light.Position = m_pTriPlayer->GetTransform()->GetvPos() + m_pTriPlayer->m_Hand;
 		Light.Range = 10.0f;
 		Light.Diffuse = D3DXCOLOR(1, 1, 1, 1);
-		//Light.Direction = D3DXVECTOR3(0, 1, 0);
 		DEVICE->SetLight(1, &Light);
-		//DEVICE->SetRenderState(D3DRS_AMBIENT, D3DXCOLOR(0.2f, 0.2f, 0.2f, 1));
 
 	}
 	else {
@@ -296,24 +281,14 @@ void GameManager::Update(float dTime)
 	if (INPUTMGR->GetKeyDown('M')) {
 		m_bMipmapMode = !m_bMipmapMode;
 	}
-	//m_pTriPlayer->Update(dTime);
-	//m_Tank->Update(dTime);
-	//m_pCubeObject->Update(dTime);
-	//m_Boss->Update(dTime);
-	//m_pAirPlane->Update(dTime);
-
 	for (auto& a : m_ListObj) {
 		a->Update(dTime);
 	}
 	
-	//for (auto& a : m_Tree) {
-	//	a->Update(dTime);
-	//}
 	for (int i = 0; i < 50; i++) {
 		
 		m_Star[i].Update(dTime);
 	}
-	//m_Collision = m_pTriPlayer->IsSphereCollision(m_pCubeObject->m_vPos, m_pCubeObject->m_Radius);
 	m_Collision = m_pTriPlayer->IsSphereCollision();
 	if (m_pTriPlayer->IsSphereCollision(m_Tank->GetTransform()->GetvPos(), m_Tank->m_Radius)) {
 		m_Tank->m_isBoarding = true;
@@ -322,16 +297,6 @@ void GameManager::Update(float dTime)
 		m_FPSCamera.SetpTarget(m_Tank->GetTransform());
 	}
 
-	/*
-	for (auto a = m_Tree.begin(); a != m_Tree.end();) {
-		auto b = a;
-		a++;
-		if ((*b)->m_life == false) {
-			delete *b;
-			m_Tree.erase(b);
-		}
-	}
-	*/
 	if (INPUTMGR->GetKeyDown(VK_LBUTTON)) {
 		if (m_CameraType == 1) {
 			POINT pt;
@@ -349,8 +314,6 @@ void GameManager::Update(float dTime)
 				if (i->PickingCheck(i, &m_ClickedPos, ray2)) {
 					m_SelectedObject = i;
 					m_bClicked = true;
-					//i->OnCollision( m_pTriPlayer,dTime);
-					//i->OnCollision(m_pTriPlayer);
 					D3DXVECTOR3 dir = i->GetTransform()->GetvPos()- m_pTriPlayer->GetTransform()->GetvPos();
 					D3DXVec3Normalize(&dir, &dir);
 					i->OnCollision(m_pTriPlayer->GetTransform()->GetvPos(), dir, "Bullet");
@@ -359,17 +322,24 @@ void GameManager::Update(float dTime)
 			}
 		}
 	}
-
-	/*
-	for (auto a = m_Tree.begin(); a != m_Tree.end();) {
-		auto b = a;
-		a++;
-		if ((*b)->GetbLife() == false) {
-			delete *b;
-			//m_Tree.erase(b);
+	if (INPUTMGR->GetKey(VK_LSHIFT)) {
+		if (m_CameraType == 1) {
+			m_bZoom = true;
 		}
 	}
-	*/
+	if (INPUTMGR->GetKeyUp(VK_LSHIFT)) {
+		m_bZoom = false;
+	}
+
+	if (INPUTMGR->GetKey(VK_TAB)) {
+		if (m_CameraType == 1) {
+			m_bInfomation = true;
+		}
+	}
+	if (INPUTMGR->GetKeyUp(VK_TAB)) {
+		m_bInfomation = false;
+	}
+	
 	for (auto a = m_ListObj.begin(); a != m_ListObj.end();) {
 		auto b = a;
 		a++;
@@ -394,16 +364,24 @@ void GameManager::Update(float dTime)
 	m_vTexPos.x += dTime*0.01f;
 	m_mTexTrans._31 = m_vTexPos.x;
 
-	//m_SpriteEffect->Update(dTime);
+	D3DXVECTOR3 pos = (m_pTriPlayer->GetTransform()->GetvPos());
+	pos.y = pos.z;
+	pos.z = 1;
 
+	pos.x += (m_Terrain->GetfSize() / 2);
+	pos.y += (m_Terrain->GetfSize() / 2);
+
+	pos.x= pos.x/ m_Terrain->GetfSize();
+	pos.y= 1 -pos.y/ m_Terrain->GetfSize();
+	m_PlayerUI->SetvPos(pos);
 
 	if (m_CameraType == 1) {
 		m_FPSCamera.Update(dTime);
 	}
-	//else if (m_CameraType == 2) {
 		m_TargetCamera.Update(dTime);
-	//}
-		
+		for (auto& i : m_ListUI) {
+			i->Update(dTime);
+		}
 
 }
 
@@ -412,30 +390,43 @@ void GameManager::Render(void)
 	
 	DEVICE->Clear(0,	// RECT CNT
 		NULL, // RECT
-		D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // 클리어 타입(화면버퍼|깊이버퍼)
+		D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, // 클리어 타입(화면버퍼|깊이버퍼)
 		m_sky,	// 타겟버퍼 클리어 색상
 		1.0f, // 깊이버퍼 클리어 값(깊이값)
 		0);   // 스텐실버퍼(반사, 그림자) 초기값
 	RenderMode();
 	DEVICE->BeginScene(); // 디바이스 그리겟다고 알림
+
+
 	RenderObject();
-	
+	if (m_CameraType == 0) {
+		m_WorldCamera.UIModeOn();
+		{
+			for (auto& i : m_ListUI) {
+				if (i->GetbVisible())
+					i->Render();
+			}
+			m_PlayerUI->Render();
+
+		}
+		m_WorldCamera.UIModeOff();
+	}else 	if (m_CameraType == 1) {
+		m_FPSCamera.UIModeOn();
+		{
+			for (auto& i : m_ListUI) {
+				if (i->GetbVisible())
+					i->Render();
+			}
+
+		}
+		m_FPSCamera.UIModeOff();
+	}
+
+
 	DebugView();
-	DEVICE->GetTransform(D3DTS_VIEW, &m_OrgView);
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	ViewPortMinimap();
-
-	DEVICE->Clear(0,	// RECT CNT
-		NULL, // RECT
-		D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // 클리어 타입(화면버퍼|깊이버퍼)
-		m_sky,	// 타겟버퍼 클리어 색상
-		1.0f, // 깊이버퍼 클리어 값(깊이값)
-		0);   // 스텐실버퍼(반사, 그림자) 초기값
-
-	DEVICE->BeginScene(); // 디바이스 그리겟다고 알림
-	RenderObject();
-	DEVICE->SetViewport(&m_OrgViewPort);
-	DEVICE->SetTransform(D3DTS_VIEW, &m_OrgView);
+	
+	DEVICE->SetTexture(0, NULL);
+	DEVICE->SetRenderState(D3DRS_FOGENABLE, FALSE);
 
 	DEVICE->EndScene(); // 디바이스 다그렸다고 알림
 
@@ -446,27 +437,34 @@ void GameManager::Render(void)
 void GameManager::RenderObject(void)
 {
 	
-	//m_Axis.Render();
-	//m_Grid.Render();
+	if(m_bAsix)
+		m_Axis.Render();
+	if (m_bGrid)
+		m_Grid.Render();
 	///ground
-	
-	RenderBottom();
-	RenderRiver();
-	///
-	// 오브젝트 렌더코드
-	//if(m_CameraType==2)
-	//	m_TargetCamera.Render();
-	//m_pTriPlayer->Render();
-	//m_Tank->Render();
-	////m_pCubeObject->Render();
-	//m_Boss->Render();
-	//m_pAirPlane->Render();
 
+	//{
+	//	DEVICE->SetRenderState(D3DRS_FOGENABLE, TRUE);				  // 안개On
+	//	DEVICE->SetRenderState(D3DRS_FOGCOLOR, D3DXCOLOR(1, 1, 1, 1)); // 안개색상
 
-	//for (auto& a : m_Tree) {
-	//	a->Render();
+	//																   // 안개 옵션 : 버텍스 선형 안개
+	//	float sp = 1.0f;
+	//	float ep = 50.0f;
+	//	DEVICE->SetRenderState(D3DRS_FOGVERTEXMODE, D3DFOG_LINEAR);	// 선형안개
+	//	DEVICE->SetRenderState(D3DRS_FOGSTART, *(DWORD*)(&sp));		// 안개 시작점
+	//	DEVICE->SetRenderState(D3DRS_FOGEND, *(DWORD*)(&ep));		// 안개 끝점
 	//}
 
+	RenderBottom();
+	//RenderRiver();
+	///
+	// 오브젝트 렌더코드
+
+	//float sp = 1.0f;
+	//float ep = 50.0f;
+	//DEVICE->SetRenderState(D3DRS_FOGTABLEMODE, D3DFOG_LINEAR);	// 선형안개
+	//DEVICE->SetRenderState(D3DRS_FOGSTART, *(DWORD*)(&sp));		// 안개 시작점
+	//DEVICE->SetRenderState(D3DRS_FOGEND, *(DWORD*)(&ep));		// 안개 끝점
 
 	for (int i = 0; i < 50; i++) {
 		m_Star[i].Render();
@@ -476,177 +474,58 @@ void GameManager::RenderObject(void)
 			continue;
 			a->Render();
 	}
-	// HELPER
-	//m_SpriteEffect->Render();
+	//RenderRiver();
 	m_pTriPlayer->Render();
+
+	for(int i=0;i<8;++i)
+		DEVICE->SetTexture(i, nullptr);
 }
 
 
 void GameManager::RenderBottom(void)
 {
-	//m_Terrain->Render();
-	//D3DXMATRIX mTM;
-	//D3DXMatrixIdentity(&mTM);
-	//DEVICE->SetTransform(D3DTS_WORLD, &mTM);
-	//D3DFVF_XYZ_NORMAL_UV m_ground[15000];
-	//for (int i = 0; i <2500; i++) {
-	//	m_ground[i * 6].vPos = {
-	//		-25.0f + (i % 50) ,
-	//		-0.1f,
-	//		-25.0f + (i / 50) + 1 };
-	//	m_ground[i * 6 + 4].vPos = m_ground[i * 6 + 1].vPos = {
-	//		-25.0f + (i % 50) + 1,
-	//		-0.1f,
-	//		-25.0f + (i / 50) + 1 };
-	//	m_ground[i * 6 + 3].vPos = m_ground[i * 6 + 2].vPos = {
-	//		-25.0f + (i % 50) ,
-	//		-0.1f,
-	//		-25.0f + (i / 50) };
-	//	m_ground[i * 6 + 5].vPos = {
-	//		-25.0f + i % 50 + 1,
-	//		-0.1f,
-	//		-25.0f + (i / 50) };
-	//	m_ground[i * 6].u = ((i % 50) / 50.0f);
-	//	m_ground[i * 6 + 4].u = m_ground[i * 6 + 1].u = ((i % 50 + 1) / 50.0f);
-	//	m_ground[i * 6 + 3].u = m_ground[i * 6 + 2].u = ((i % 50) / 50.0f);
-	//	m_ground[i * 6 + 5].u = ((i % 50 + 1) / 50.0f);
-
-	//	m_ground[i * 6].v = (50 - (i / 50 + 1)) / 50.0f;
-	//	m_ground[i * 6 + 4].v = m_ground[i * 6 + 1].v = (50 - (i / 50 + 1)) / 50.0f;
-	//	m_ground[i * 6 + 3].v = m_ground[i * 6 + 2].v = (50 - (i / 50)) / 50.0f;
-	//	m_ground[i * 6 + 5].v = (50 - (i / 50)) / 50.0f;
-	//}
-	//for (int i = 0; i < 15000; i++) {
-	//	m_ground[i].vNormal = D3DXVECTOR3(0, 1, 0);
-	//}
-	//D3DMATERIAL9 m_material;
-	//ZeroMemory(&m_material, sizeof(m_material));
-	////m_material.Ambient=m_material.Diffuse = D3DXCOLOR(0.6f, 0.3f, 0, 1);
-	//m_material.Ambient = m_material.Diffuse = D3DXCOLOR(1, 1, 1, 1);
-
-	//DEVICE->SetRenderState(D3DRS_LIGHTING, true); // 라이팅
-	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); // 컬링모드
-
-	//DEVICE->SetMaterial(&m_material);
-
-	//DEVICE->SetFVF(D3DFVF_XYZ_NORMAL_UV::FVF);
-
-
-	//DEVICE->SetTexture(0, m_pMaskTexture);
-
-	//DEVICE->SetTexture(1, m_pGrassTexture);
-	//DEVICE->SetTexture(2, m_pMaskTexture);
-	//DEVICE->SetTexture(3, m_pBottomTexture);
-	////DEVICE->SetTexture(6, m_pRiverTexture);
-	////DEVICE->SetTexture(8, m_pWaterTexture);
-	////DEVICE->SetTexture(5, m_pWaterTexture);
-
-
-	//DEVICE->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
-	//DEVICE->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-	//DEVICE->SetTextureStageState(0, D3DTSS_TEXCOORDINDEX, 0);
-
-	//DEVICE->SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_MODULATE);
-	//DEVICE->SetTextureStageState(1, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-	//DEVICE->SetTextureStageState(1, D3DTSS_COLORARG2, D3DTA_CURRENT);
-	//DEVICE->SetTextureStageState(1, D3DTSS_TEXCOORDINDEX, 0);
-	//DEVICE->SetTextureStageState(1, D3DTSS_RESULTARG, D3DTA_TEMP);
-
-
-	//DEVICE->SetTextureStageState(2, D3DTSS_COLOROP, D3DTOP_SUBTRACT);
-	//DEVICE->SetTextureStageState(2, D3DTSS_CONSTANT, D3DXCOLOR(1, 1, 1, 1));
-	//DEVICE->SetTextureStageState(2, D3DTSS_COLORARG1, D3DTA_CONSTANT);
-	//DEVICE->SetTextureStageState(2, D3DTSS_COLORARG2, D3DTA_TEXTURE);
-	//DEVICE->SetTextureStageState(2, D3DTSS_TEXCOORDINDEX, 0);
-
-	//DEVICE->SetTextureStageState(3, D3DTSS_COLOROP, D3DTOP_MODULATE);
-	//DEVICE->SetTextureStageState(3, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-	//DEVICE->SetTextureStageState(3, D3DTSS_COLORARG2, D3DTA_CURRENT);
-	//DEVICE->SetTextureStageState(3, D3DTSS_TEXCOORDINDEX, 0);
-
-	//DEVICE->SetTextureStageState(4, D3DTSS_COLOROP, D3DTOP_ADD);
-	//DEVICE->SetTextureStageState(4, D3DTSS_COLORARG1, D3DTA_CURRENT);
-	//DEVICE->SetTextureStageState(4, D3DTSS_COLORARG2, D3DTA_TEMP);
-	//DEVICE->SetTextureStageState(4, D3DTSS_TEXCOORDINDEX, 0);
-
-	//DEVICE->SetTextureStageState(5, D3DTSS_COLOROP, D3DTOP_MODULATE);
-	//DEVICE->SetTextureStageState(5, D3DTSS_COLORARG1, D3DTA_CURRENT);
-	//DEVICE->SetTextureStageState(5, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
-	//DEVICE->SetTextureStageState(5, D3DTSS_TEXCOORDINDEX, 0);
-	////DEVICE->SetTextureStageState(5, D3DTSS_RESULTARG, D3DTA_TEMP);
-	////m_Winter = 1;
-	//if (m_Winter>0) {
-
-	//	//DEVICE->SetTexture(0, m_pSnowTexture);
-	//	//DEVICE->SetTexture(6, m_pMaskTexture);
-
-	//	DEVICE->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_INVSRCCOLOR); // mask의 흰색이 그릴 부분일 경우
-	//	DEVICE->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
-
-	//	DEVICE->SetTextureStageState(6, D3DTSS_COLOROP, D3DTOP_ADD);
-	//	DEVICE->SetTextureStageState(6, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-	//	DEVICE->SetTextureStageState(6, D3DTSS_COLORARG2, D3DTA_CURRENT);
-	//	DEVICE->SetTextureStageState(6, D3DTSS_TEXCOORDINDEX, 0);
-	//	DEVICE->SetTexture(6, m_pSnowTexture[m_Winter - 1]);
-	//}
-	//else {
-	//	DEVICE->SetTextureStageState(6, D3DTSS_COLOROP, D3DTOP_DISABLE);
-	//	DEVICE->SetTextureStageState(7, D3DTSS_COLOROP, D3DTOP_DISABLE);
-	//}
-	////////////////
-	//
-
-	//for (int i = 0; i < 2500; i++) {
-	//	//DEVICE->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, m_ground+i*4, sizeof(D3DFVF_XYZ_NORMAL_UV));
-	//	DEVICE->DrawPrimitiveUP(D3DPT_TRIANGLELIST, 2, m_ground + i * 6, sizeof(D3DFVF_XYZ_NORMAL_UV));
-	//}
-	//for (int i = 0; i < 8; i++) {
-	//	DEVICE->SetTexture(i, nullptr);
-	//	DEVICE->SetTextureStageState(i, D3DTSS_COLOROP, D3DTOP_DISABLE);
-	//}
-	//DEVICE->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
-
 
 }
 
 void GameManager::RenderMode(void)
 {
-	if (m_FilterMode == FM_POINT) {
-		// 근접점 샘플링
-		// - 디폴트 필터링 방식이며 가장 품질이 떨어지지만
-		//   가장 빠른 속도를 가짐
-		DEVICE->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_POINT);
-		DEVICE->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_POINT);
-	}
-	if (m_FilterMode == FM_LINEAR) {
+	for (int i = 0; i < 8; ++i) {
+		if (m_FilterMode == FM_POINT) {
+			// 근접점 샘플링
+			// - 디폴트 필터링 방식이며 가장 품질이 떨어지지만
+			//   가장 빠른 속도를 가짐
+			DEVICE->SetSamplerState(i, D3DSAMP_MAGFILTER, D3DTEXF_POINT);
+			DEVICE->SetSamplerState(i, D3DSAMP_MINFILTER, D3DTEXF_POINT);
+		}
+		if (m_FilterMode == FM_LINEAR) {
 
-		// 선형 필터링(권장)
-		// - 비교적 높은 품질의 결과를 만들어내면
-		//   근접점 샘플링 보단 느리지만
-		//   하드웨어 성능을 고려하면 속도는 빠른편
-		DEVICE->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
-		DEVICE->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
-	}
-	if (m_FilterMode == FM_ANISOTROPIC) {
+			// 선형 필터링(권장)
+			// - 비교적 높은 품질의 결과를 만들어내면
+			//   근접점 샘플링 보단 느리지만
+			//   하드웨어 성능을 고려하면 속도는 빠른편
+			DEVICE->SetSamplerState(i, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
+			DEVICE->SetSamplerState(i, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
+		}
+		if (m_FilterMode == FM_ANISOTROPIC) {
 
-		// 비등방성 필터링
-		// - 가장 높은 품질의 결과를 만들어 내지만
-		//   실행속도는 가장 느림.
-		// - 실행속도와 결과물을 타협하여 옵션을 설정하면 되지만
-		//   요새 하드웨어 성능이 좋아서 최상위 옵션을 걸고
-		//   사용자가 선택할 수 있게 하는것1이 최선.
-		DEVICE->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_ANISOTROPIC);
-		DEVICE->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_ANISOTROPIC);
-		DEVICE->SetSamplerState(0, D3DSAMP_MAXANISOTROPY, 4);
+			// 비등방성 필터링
+			// - 가장 높은 품질의 결과를 만들어 내지만
+			//   실행속도는 가장 느림.
+			// - 실행속도와 결과물을 타협하여 옵션을 설정하면 되지만
+			//   요새 하드웨어 성능이 좋아서 최상위 옵션을 걸고
+			//   사용자가 선택할 수 있게 하는것1이 최선.
+			DEVICE->SetSamplerState(i, D3DSAMP_MAGFILTER, D3DTEXF_ANISOTROPIC);
+			DEVICE->SetSamplerState(i, D3DSAMP_MINFILTER, D3DTEXF_ANISOTROPIC);
+			DEVICE->SetSamplerState(i, D3DSAMP_MAXANISOTROPY, 4);
+		}
+		// 밉 맵
+		// - 원본 텍스쳐보다 작은 텍스쳐들을 메모리에 저장해 두었다가
+		//   가장 알맞는 텍스쳐로 렌더링 하는 방식
+		if (m_bMipmapMode)
+			DEVICE->SetSamplerState(i, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
+		else
+			DEVICE->SetSamplerState(i, D3DSAMP_MIPFILTER, D3DTEXF_NONE);
 	}
-	// 밉 맵
-	// - 원본 텍스쳐보다 작은 텍스쳐들을 메모리에 저장해 두었다가
-	//   가장 알맞는 텍스쳐로 렌더링 하는 방식
-	if (m_bMipmapMode)
-		DEVICE->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
-	else
-		DEVICE->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_NONE);
-
 
 }
 void GameManager::RenderRiver(void)
@@ -675,8 +554,20 @@ void GameManager::RenderRiver(void)
 	for (int i = 0; i < 6; i++) {
 		m_River[i].vNormal = D3DXVECTOR3(0, 1, 0);
 	}
+
+	{
+		DEVICE->SetRenderState(D3DRS_ZWRITEENABLE, false);
+		DEVICE->SetRenderState(D3DRS_STENCILENABLE, true);
+		DEVICE->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_ALWAYS);
+		DEVICE->SetRenderState(D3DRS_STENCILREF, 1);
+
+		DEVICE->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_REPLACE);
+
+	}
+	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); // 컬링모드
+
 	DEVICE->SetTexture(0, m_pWaterTexture);
-	//DEVICE->SetTexture(0, m_pRiverTexture);
+
 	D3DMATERIAL9 material;
 	ZeroMemory(&material, sizeof(material));
 	material.Diffuse =material.Ambient = D3DXCOLOR(1, 1, 1, 1);
@@ -685,23 +576,15 @@ void GameManager::RenderRiver(void)
 	D3DXMatrixIdentity(&mTM);
 	DEVICE->SetTransform(D3DTS_WORLD, &mTM);
 
-	DEVICE->SetRenderState(D3DRS_LIGHTING, true);
+	
 	DEVICE->SetFVF(D3DFVF_XYZ_NORMAL_UV::FVF);
 
-	DEVICE->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
-	DEVICE->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-	DEVICE->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
-
-
-	
-	//DEVICE->SetTextureStageState(1, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
-	//DEVICE->SetTextureStageState(1, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
-	//DEVICE->SetTextureStageState(1, D3DTSS_ALPHAARG2, D3DTA_TFACTOR);
-	//DEVICE->SetRenderState(D3DRS_TEXTUREFACTOR,D3DCOLOR_ARGB(255, 255, 255, 255));
-
+	DEVICE->SetRenderState(D3DRS_LIGHTING, true);
+	//DEVICE->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+	//DEVICE->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+	//DEVICE->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
 	DEVICE->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT2);
 	DEVICE->SetTransform(D3DTS_TEXTURE0, &m_mTexTrans);
-	//DEVICE->SetTransform(D3DTS_TEXTURE0, &m);
 
 	DEVICE->DrawPrimitiveUP(D3DPT_TRIANGLELIST, 2, m_River, sizeof(D3DFVF_XYZ_NORMAL_UV));
 
@@ -712,14 +595,29 @@ void GameManager::RenderRiver(void)
 	
 	DEVICE->SetTexture(0, nullptr);
 	DEVICE->SetTransform(D3DTS_TEXTURE0, &m);
-	//DEVICE->SetTextureStageState(0, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_DISABLE);
+
+
+	DEVICE->SetRenderState(D3DRS_STENCILENABLE, false);
+	DEVICE->SetRenderState(D3DRS_ZWRITEENABLE, true);
+	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW); // 컬링모드
 }
 
 void GameManager::Release(void)
 {
 	SAFE_DELETE(m_Tank);
 	SAFE_DELETE(m_WindMill);
+	int j = 0;
+	//for (auto i = m_ListObj.begin(); i != m_ListObj.end();) {
 
+	//	auto k = *i;
+	//	i++;
+	//	SAFE_DELETE(k);
+	//}
+	m_ListObj.clear();
+	//for (auto& i : m_ListUI) {
+	//	SAFE_DELETE(i);
+	//}
+	m_ListUI.clear();
 }
 
 void GameManager::Loop(void)
@@ -749,6 +647,15 @@ void GameManager::ViewPortMinimap(void)
 	DEVICE->SetViewport(&vp);
 }
 
+void GameManager::OnGridButton(void * _vp)
+{
+
+}
+
+void GameManager::OnAsixButton(void *_vp)
+{
+}
+
 void GameManager::DebugView (void)
 {
 	int _x = 10;
@@ -774,39 +681,15 @@ void GameManager::DebugView (void)
 		break;
 	}
 	FONTMGR->DrawTextA(_x, _y += 15, _color, m_bMipmapMode?"밉맵ON":"밉맵OFF");
-	//OutputDebugString(textBuffer);
-	/*
-	FONTMGR->DrawTextA(_x, _y, _color, "<플레이어 정보>");
-	FONTMGR->DrawTextA(_x, _y += 15, _color, " -위치 (%.2f,%.2f,%.2f)",m_pTriPlayer->m_vPos.x, m_pTriPlayer->m_vPos.y, m_pTriPlayer->m_vPos.z);
-	FONTMGR->DrawTextA(_x, _y += 15, _color, " -방향 (%.2f,%.2f,%.2f)", m_pTriPlayer->m_vDir.x, m_pTriPlayer->m_vDir.y, m_pTriPlayer->m_vDir.z);
-	FONTMGR->DrawTextA(_x, _y += 15, _color, " -최종행렬");
-	FONTMGR->DrawTextA(_x, _y += 15, _color, "  [%.2f, %.2f, %.2f, %.2f ]", m_pTriPlayer->m_mTM._11, m_pTriPlayer->m_mTM._12, m_pTriPlayer->m_mTM._13, m_pTriPlayer->m_mTM._14);
-	FONTMGR->DrawTextA(_x, _y += 15, _color, "  [%.2f, %.2f, %.2f, %.2f ]", m_pTriPlayer->m_mTM._21, m_pTriPlayer->m_mTM._22, m_pTriPlayer->m_mTM._23, m_pTriPlayer->m_mTM._24);
-	FONTMGR->DrawTextA(_x, _y += 15, _color, "  [%.2f, %.2f, %.2f, %.2f ]", m_pTriPlayer->m_mTM._31, m_pTriPlayer->m_mTM._32, m_pTriPlayer->m_mTM._33, m_pTriPlayer->m_mTM._34);
-	FONTMGR->DrawTextA(_x, _y += 15, _color, "  [%.2f, %.2f, %.2f, %.2f ]", m_pTriPlayer->m_mTM._41, m_pTriPlayer->m_mTM._42, m_pTriPlayer->m_mTM._43, m_pTriPlayer->m_mTM._44);
-
-	FONTMGR->DrawTextA(_x, _y += 15, _color, " -위치 (%.2f,%.2f,%.2f)",m_Tank->m_vPos.x, m_Tank->m_vPos.y, m_Tank->m_vPos.z);
-	FONTMGR->DrawTextA(_x, _y += 15, _color, " -방향 (%.2f,%.2f,%.2f)", m_Tank->m_vDir.x, m_Tank->m_vDir.y, m_Tank->m_vDir.z);
-	FONTMGR->DrawTextA(_x, _y += 15, _color, " -최종행렬");
-	FONTMGR->DrawTextA(_x, _y += 15, _color, "  [%.2f, %.2f, %.2f, %.2f ]", m_Tank->m_mTM._11, m_Tank->m_mTM._12, m_Tank->m_mTM._13, m_Tank->m_mTM._14);
-	FONTMGR->DrawTextA(_x, _y += 15, _color, "  [%.2f, %.2f, %.2f, %.2f ]", m_Tank->m_mTM._21, m_Tank->m_mTM._22, m_Tank->m_mTM._23, m_Tank->m_mTM._24);
-	FONTMGR->DrawTextA(_x, _y += 15, _color, "  [%.2f, %.2f, %.2f, %.2f ]", m_Tank->m_mTM._31, m_Tank->m_mTM._32, m_Tank->m_mTM._33, m_Tank->m_mTM._34);
-	FONTMGR->DrawTextA(_x, _y += 15, _color, "  [%.2f, %.2f, %.2f, %.2f ]", m_Tank->m_mTM._41, m_Tank->m_mTM._42, m_Tank->m_mTM._43, m_Tank->m_mTM._44);
-	D3DXVECTOR3 DestPos = m_pCubeObject->m_vPos;
-	DestPos -= m_pTriPlayer->m_vPos;
-	
-	DestPos = m_pTriPlayer->m_targetPos - m_pTriPlayer->m_vPos;
-
-	float len = D3DXVec3Length(&DestPos);
-	FONTMGR->DrawTextA(_x, _y += 15, _color, " -원점에서의 거리 (%.2f)", len);
-	FONTMGR->DrawTextA(_x, _y += 15, _color, "충돌 (%s)", m_Collision?"충돌!":"충돌안됨");
-	*/
 }
 
 void GameManager::WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 {
 	if (m_CameraType==0) {
 		m_WorldCamera.WndProc(hWnd, iMsg, wParam, lParam);
+	}
+	for (auto& i : m_ListUI) {
+		i->WndProc(hWnd, iMsg, wParam, lParam);
 	}
 }
 
@@ -825,6 +708,10 @@ GameManager::GameManager()
 	m_Winter = 0;
 	m_bMipmapMode = false;
 	m_FilterMode = FM_POINT;
+	m_bZoom = false;
+	m_bInfomation = false;
+	m_bAsix = true;
+	m_bGrid = true;
 }
 
 

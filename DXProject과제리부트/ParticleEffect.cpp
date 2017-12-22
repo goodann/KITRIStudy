@@ -42,6 +42,27 @@ void ParticleEffect::Init(ParticleEffectInfo _info)
 void ParticleEffect::Update(float dTime)
 {
 	baseObject::Update(dTime);
+
+
+	if (m_bLife == false) {
+		//m_deadTimer.SetTimer(5.0f);
+		m_alpha -= 0.5f * dTime;
+	}
+	if (m_alpha <= 0)
+		m_bDead = true;
+
+	m_Transform->Update(dTime);
+
+	//if (m_Parent) {
+	//	D3DXMATRIX tm;
+	//	D3DXMatrixInverse(&tm, nullptr, &m_Parent->GetTransform()->GetmTM());
+	//	m_Transform->SetmTM(m_Transform->GetmTM()*tm*(m_Parent->GetTransform()->GetmTM()));
+	//	//m_Transform->SetmTM(m_mInversPivotPoint*m_mScale *m_mPivotAxis* m_mRot *  m_mTrans*(*m_ParentTM)); 
+	//	D3DXVec3TransformNormal(&(m_Transform->GetvDir()), &(m_Transform->GetOrgvDir()), &(m_Parent->GetTransform()->GetmRot()));
+	//	D3DXVec3Normalize(&(m_Transform->GetvDir()), &(m_Transform->GetvDir()));
+	//}
+
+
 	if (m_UseGravity) {
 		m_vVelocity += GRAVITY*dTime;
 	}

@@ -37,6 +37,21 @@
     <Filter Include="DXProject\Collision">
       <UniqueIdentifier>{a36f1f25-a08f-4087-a45c-d769e6a29090}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DXProject\Objects\Player">
+      <UniqueIdentifier>{04e30b92-c14e-4e7d-b1d0-d22dec830fad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DXProject\Objects\Enemy">
+      <UniqueIdentifier>{f60e8e22-598f-480d-bf7a-af8a14a291ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DXProject\Objects\Nature">
+      <UniqueIdentifier>{401a98fa-c111-4d87-b6c0-80a6ec627a81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DXProject\UI">
+      <UniqueIdentifier>{476d6134-bb10-4afa-9e47-3cf199e34890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DXProject\Effect">
+      <UniqueIdentifier>{3704efdf-705e-4f33-865e-7b791b941ad5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameManager.cpp">
@@ -54,9 +69,6 @@
     <ClCompile Include="DirectManager.cpp">
       <Filter>DXProject\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="TrianglePlayer.cpp">
-      <Filter>DXProject\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>DXProject\Helper</Filter>
     </ClCompile>
@@ -68,9 +80,6 @@
     </ClCompile>
     <ClCompile Include="WorldGrid.cpp">
       <Filter>DXProject\Helper</Filter>
-    </ClCompile>
-    <ClCompile Include="CubeObject.cpp">
-      <Filter>DXProject\Objects</Filter>
     </ClCompile>
     <ClCompile Include="FontManager.cpp">
       <Filter>DXProject\Manager</Filter>
@@ -87,18 +96,6 @@
     <ClCompile Include="VertexTransform.cpp">
       <Filter>DXProject\Objects\property\Transform</Filter>
     </ClCompile>
-    <ClCompile Include="baseObject.cpp">
-      <Filter>DXProject\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>DXProject\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Star.cpp">
-      <Filter>DXProject\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Tree.cpp">
-      <Filter>DXProject\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Tank.cpp">
       <Filter>DXProject\Objects\Tank</Filter>
     </ClCompile>
@@ -110,9 +107,6 @@
     </ClCompile>
     <ClCompile Include="myTimer.cpp">
       <Filter>DXProject\Helper</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="CollisonSphere.cpp">
       <Filter>DXProject\Collision</Filter>
@@ -135,37 +129,73 @@
     <ClCompile Include="MouseRay.cpp">
       <Filter>DXProject\Helper</Filter>
     </ClCompile>
-    <ClCompile Include="Windmill.cpp">
-      <Filter>DXProject\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>DXProject\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Shotable.cpp">
-      <Filter>DXProject\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="ShotableObject.cpp">
-      <Filter>DXProject\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Terrain.cpp">
-      <Filter>DXProject\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Boss.cpp">
-      <Filter>DXProject\Objects</Filter>
+    <ClCompile Include="AirPlane.cpp">
+      <Filter>DXProject\Objects\Nature</Filter>
     </ClCompile>
     <ClCompile Include="AirPlaneBoom.cpp">
-      <Filter>DXProject\Objects</Filter>
+      <Filter>DXProject\Objects\Nature</Filter>
     </ClCompile>
-    <ClCompile Include="AirPlane.cpp">
-      <Filter>DXProject\Objects</Filter>
+    <ClCompile Include="Boss.cpp">
+      <Filter>DXProject\Objects\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteEffect.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>DXProject\Objects\Player</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleEffect.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="CubeObject.cpp">
+      <Filter>DXProject\Objects\property</Filter>
+    </ClCompile>
+    <ClCompile Include="baseObject.cpp">
+      <Filter>DXProject\Objects\property</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>DXProject\Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Star.cpp">
+      <Filter>DXProject\Objects\Nature</Filter>
+    </ClCompile>
+    <ClCompile Include="TrianglePlayer.cpp">
+      <Filter>DXProject\Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Tree.cpp">
+      <Filter>DXProject\Objects\Nature</Filter>
+    </ClCompile>
+    <ClCompile Include="Windmill.cpp">
+      <Filter>DXProject\Objects\Nature</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>DXProject\Objects\Nature</Filter>
+    </ClCompile>
+    <ClCompile Include="Shotable.cpp">
+      <Filter>DXProject\Objects\property</Filter>
+    </ClCompile>
+    <ClCompile Include="ShotableObject.cpp">
+      <Filter>DXProject\Objects\property</Filter>
+    </ClCompile>
+    <ClCompile Include="UIText.cpp">
+      <Filter>DXProject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>DXProject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>DXProject\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Particle.cpp">
+      <Filter>DXProject\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEffect.cpp">
+      <Filter>DXProject\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteEffect.cpp">
+      <Filter>DXProject\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="UIButton.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="UICheckBox.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="River.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -182,9 +212,6 @@
     <ClInclude Include="DirectManager.h">
       <Filter>DXProject\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="TrianglePlayer.h">
-      <Filter>DXProject\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>DXProject\Helper</Filter>
     </ClInclude>
@@ -196,9 +223,6 @@
     </ClInclude>
     <ClInclude Include="WorldGrid.h">
       <Filter>DXProject\Helper</Filter>
-    </ClInclude>
-    <ClInclude Include="CubeObject.h">
-      <Filter>DXProject\Objects</Filter>
     </ClInclude>
     <ClInclude Include="FontManager.h">
       <Filter>DXProject\Manager</Filter>
@@ -215,18 +239,6 @@
     <ClInclude Include="VertexTransform.h">
       <Filter>DXProject\Objects\property\Transform</Filter>
     </ClInclude>
-    <ClInclude Include="baseObject.h">
-      <Filter>DXProject\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>DXProject\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Star.h">
-      <Filter>DXProject\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Tree.h">
-      <Filter>DXProject\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Tank.h">
       <Filter>DXProject\Objects\Tank</Filter>
     </ClInclude>
@@ -241,9 +253,6 @@
     </ClInclude>
     <ClInclude Include="myTimer.h">
       <Filter>DXProject\Helper</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect.h">
-      <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
       <Filter>DXProject\Collision</Filter>
@@ -266,37 +275,73 @@
     <ClInclude Include="MouseRay.h">
       <Filter>DXProject\Helper</Filter>
     </ClInclude>
-    <ClInclude Include="Windmill.h">
-      <Filter>DXProject\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Terrain.h">
-      <Filter>DXProject\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="ShotableObject.h">
-      <Filter>DXProject\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Shotable.h">
-      <Filter>DXProject\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>DXProject\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Boss.h">
-      <Filter>DXProject\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="AirPlane.h">
-      <Filter>DXProject\Objects</Filter>
+      <Filter>DXProject\Objects\Nature</Filter>
     </ClInclude>
     <ClInclude Include="AirPlaneBoom.h">
-      <Filter>DXProject\Objects</Filter>
+      <Filter>DXProject\Objects\Nature</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteEffect.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="Boss.h">
+      <Filter>DXProject\Objects\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleEffect.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="Bullet.h">
+      <Filter>DXProject\Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeObject.h">
+      <Filter>DXProject\Objects\property</Filter>
+    </ClInclude>
+    <ClInclude Include="baseObject.h">
+      <Filter>DXProject\Objects\property</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>DXProject\Objects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Star.h">
+      <Filter>DXProject\Objects\Nature</Filter>
+    </ClInclude>
+    <ClInclude Include="TrianglePlayer.h">
+      <Filter>DXProject\Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Windmill.h">
+      <Filter>DXProject\Objects\Nature</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>DXProject\Objects\Nature</Filter>
+    </ClInclude>
+    <ClInclude Include="Tree.h">
+      <Filter>DXProject\Objects\Nature</Filter>
+    </ClInclude>
+    <ClInclude Include="ShotableObject.h">
+      <Filter>DXProject\Objects\property</Filter>
+    </ClInclude>
+    <ClInclude Include="Shotable.h">
+      <Filter>DXProject\Objects\property</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>DXProject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIText.h">
+      <Filter>DXProject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>DXProject\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Particle.h">
+      <Filter>DXProject\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEffect.h">
+      <Filter>DXProject\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteEffect.h">
+      <Filter>DXProject\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="UIButton.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="UICheckBox.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="River.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

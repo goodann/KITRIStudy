@@ -41,6 +41,13 @@ void baseObject::Init(OBJECTINFO _info)
 	//	_info.m_collInfo.pTarget = this;
 	//	COLLMGR->CreateCollisionSphere(_info);
 	//}
+	m_Parent = _info.Parent;
+
+	if (m_Parent != nullptr) {
+		Transform* tf = _info.Parent->GetTransform();
+		if (tf != nullptr)
+			m_ParentTM = &(tf->GetmTM());
+	}
 	m_fRadius = _info.fRadius;
 	tag = _info.strName;
 	m_FIleName = _info.FileName;
@@ -56,6 +63,16 @@ void baseObject::Update(float dTime)
 		m_bDead = true;
 	
 	m_Transform->Update(dTime);
+	if (m_Parent) {
+		D3DXMATRIX tm;
+		D3DXMatrixInverse(&tm, nullptr, &m_Parent->GetTransform()->GetmTM());
+		//m_Transform->SetmTM(m_Transform->GetmTM()*tm*(m_Parent->GetTransform()->GetmTM()));
+		m_Transform->SetmTM(m_Transform->GetmTM()*(m_Parent->GetTransform()->GetmTM()));
+		//m_Transform->SetmTM(m_mInversPivotPoint*m_mScale *m_mPivotAxis* m_mRot *  m_mTrans*(*m_ParentTM)); 
+		D3DXVec3TransformNormal(&(m_Transform->GetvDir()), &(m_Transform->GetOrgvDir()), &(m_Parent->GetTransform()->GetmRot()));
+		D3DXVec3Normalize(&(m_Transform->GetvDir()), &(m_Transform->GetvDir()));
+	}
+	
 }
 
 void baseObject::Render(void)

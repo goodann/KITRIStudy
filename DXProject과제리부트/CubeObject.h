@@ -28,8 +28,7 @@ public:
 	D3DXVECTOR3				m_vRot;
 	D3DXVECTOR3				m_vScale;
 	
-	baseObject* m_Parent;
-	LPD3DXMATRIX m_ParentTM;
+	
 
 	D3DXMATRIX				m_mTM;
 	float m_Radius;
@@ -50,6 +49,7 @@ public:
 	virtual void Init(OBJECTINFO _info);
 	virtual void Update(float dTime);
 	virtual void Render(void);
+	virtual void Render(D3DXMATRIX* pmTM);
 	virtual void Release(void);
 public:
 	CubeObject();

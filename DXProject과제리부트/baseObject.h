@@ -11,7 +11,9 @@ public:
 
 protected:
 	Transform*				m_Transform;
-
+	baseObject* m_Parent;
+	LPD3DXMATRIX m_ParentTM;
+	float m_alpha;
 	// vb
 	//LPDIRECT3DVERTEXBUFFER9		m_pVB;
 	//int							m_nStrideSize;
@@ -25,9 +27,9 @@ protected:
 	PROPERTY_FUNC(float, Speed);
 	PROPERTY_FUNC(bool, bLife);
 	GETTER(string, FIleName);
-	myTimer m_deadTimer;
+	
 	PROPERTY_FUNC(bool, bDead);
-	float m_alpha;
+	
 public:
 	string tag;
 	virtual void Init(OBJECTINFO _info);

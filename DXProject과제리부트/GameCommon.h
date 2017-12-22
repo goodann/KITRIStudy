@@ -117,7 +117,7 @@ struct OBJECTINFO
 };
 
 void ZeroInfo(OBJECTINFO* info);
-
+enum FONTTYPE { FT_DEFAULT, FT_BOADER ,FT_UI };
 
 struct D3DFVF_XYZ_COLOR
 {
@@ -127,6 +127,13 @@ struct D3DFVF_XYZ_COLOR
 	enum {FVF = D3DFVF_XYZ | D3DFVF_DIFFUSE };
 };
 
+struct D3DFVF_XYZ_TEX1
+{
+	D3DXVECTOR3		vPos;
+	float u, v;
+
+	enum { FVF = D3DFVF_XYZ | D3DFVF_TEX1 };
+};
 
 struct D3DFVF_XYZ_NORMAL
 {
@@ -144,6 +151,17 @@ struct D3DFVF_XYZ_NORMAL_UV
 	float v;
 
 	enum { FVF = D3DFVF_XYZ | D3DFVF_NORMAL| D3DFVF_TEX1 };
+};
+struct D3DFVF_XYZ_NORMAL_UV2
+{
+	D3DXVECTOR3		vPos;
+	D3DXVECTOR3 vNormal;
+	float u;
+	float v;
+	float u2;
+	float v2;
+
+	enum { FVF = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX2 };
 };
 float fRandom(float max, float min);
 POINT GetClientPoint(void);
@@ -204,6 +222,14 @@ POINT GetClientPoint(void);
 #include "TankTop.h"
 #include "TankBody.h"
 #include "Tank.h"
+
+
+#include "UI.h"
+#include"UIText.h"
+#include "UIButton.h"
+#include "UICheckBox.h"
+
+#include "River.h"
 
 #include "InputManager.h"
 #include "DirectManager.h"

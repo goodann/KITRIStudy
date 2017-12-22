@@ -83,6 +83,7 @@ void Transform::Update(float dtime)
 	D3DXVec3Normalize(&m_vDir, &m_vDir);
 
 	m_mTM = m_mScale * m_mRot * m_mTrans;
+
 		
 	
 }
