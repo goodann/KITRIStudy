@@ -221,10 +221,15 @@ void GameManager::Update(float dTime)
 		}
 		if (m_ToolMode == 3) {
 			if (m_SelectedObject) {
+				m_DebugInt = index;
 				if ((index % 2)) {
 					index -= 1;
 				}
-					((Terrain*)m_SelectedObject)->Up(index);
+				//((Terrain*)m_SelectedObject)->Up(index);
+				//((Terrain*)m_SelectedObject)->UpRect(index,10);
+				//((Terrain*)m_SelectedObject)->UpCircle(index, 10,m_ClickedPos);
+				((Terrain*)m_SelectedObject)->UpHill(index, 10,10, m_ClickedPos);
+				
 				
 			}
 		}
@@ -578,6 +583,8 @@ void GameManager::DebugView(void)
 	FONTMGR->DrawTextA(_x, _y += 15, _color, "충돌위치 (%.2f , %.2f , %.2f)", m_ClickedPos.x, m_ClickedPos.y, m_ClickedPos.z);
 	FONTMGR->DrawTextA(_x, _y += 15, _color, m_bClicked ? "클릭!" : "대기중");
 	FONTMGR->DrawTextA(_x, _y += 15, _color, "충돌위치 (%.2f , %.2f , %.2f)", m_ClickedPos.x, m_ClickedPos.y, m_ClickedPos.z);
+	FONTMGR->DrawTextA(_x, _y += 15, _color, "디버그인트 : %d", m_DebugInt);
+	
 	/*
 	FONTMGR->DrawTextA(_x, _y, _color, "<플레이어 정보>");
 	FONTMGR->DrawTextA(_x, _y += 15, _color, " -위치 (%.2f,%.2f,%.2f)",m_pTriPlayer->m_vPos.x, m_pTriPlayer->m_vPos.y, m_pTriPlayer->m_vPos.z);
@@ -628,6 +635,7 @@ GameManager::GameManager()
 	m_ToolMode = 0;
 	m_ModelMode = 0;
 	m_SelectedObject = nullptr;
+	m_DebugInt = 0;
 }
 
 

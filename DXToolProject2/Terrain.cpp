@@ -6,7 +6,7 @@ void Terrain::Init()
 {	
 
 	m_fSize = 100;
-	m_fCount = 10;
+	m_fCount = 100;
 	OBJECTINFO _info;
 	ZeroInfo(&_info);
 	_info.strName.resize(255);
@@ -216,9 +216,9 @@ void Terrain::InitVB(int tileCnt)
 		for (int x = 0; x < (tileCnt + 1); ++x) {
 			int index = z * (tileCnt + 1) + x;
 
-			m_Vertecs[index].vPos.x = nStartX + x;
+			m_Vertecs[index].vPos.x = (float)nStartX + x;
 			m_Vertecs[index].vPos.y = -0.01f;
-			m_Vertecs[index].vPos.z = nStartZ - z;
+			m_Vertecs[index].vPos.z = (float)nStartZ - z;
 			m_Vertecs[index].vNormal = D3DXVECTOR3(0, 1, 0);
 
 			m_Vertecs[index].u = x / (float)(tileCnt);
@@ -272,7 +272,130 @@ void Terrain::Up(int index)
 
 void Terrain::UpRect(int index, int size)
 {
+	set<D3DXVECTOR3*> pos;
+	int yy = size;
+	int hCount = yy;
+	int start = (index - (m_fCount * 2)*(yy))-(size*2-2);
+	while (start < 0) {
+		start += (m_fCount * 2);
+		hCount--;
+	}
+	for (int i = 0; i < size*2; i++) {
+		
+		for (int j = 0; j < size*4; j++) {
+			if ((start + j) / (m_fCount*2) != (index - (m_fCount * 2)*hCount) / (m_fCount*2))
+				continue;
+			if (start + j >= m_nTotalFaceCnt)
+				break;
+			pos.insert(&m_Vertecs[m_pDataIB[start + j]._0].vPos);
+			pos.insert(&m_Vertecs[m_pDataIB[start + j]._1].vPos);
+			pos.insert(&m_Vertecs[m_pDataIB[start + j]._2].vPos);
+		}
+		start += (m_fCount * 2);
+		hCount--;
+	}
+	for (auto& i : pos) {
+		i->y++;
+	}
 
+	((VertexTransform*)m_Transform)->Modifiy(m_Vertecs, sizeof(D3DFVF_XYZ_NORMAL_UV)*m_nTotalVertexCount);
+}
+
+void Terrain::UpCircle(int index, int size, D3DXVECTOR3 point)
+{
+	set<D3DXVECTOR3*> pos;
+	int yy = size;
+	int hCount = yy;
+	int start = (index - (m_fCount * 2)*(yy)) - (size * 2 - 2);
+	while (start < 0) {
+		start += (m_fCount * 2);
+		hCount--;
+	}
+	for (int i = 0; i < size * 2; i++) {
+
+		for (int j = 0; j < size * 4; j++) {
+			if ((start + j) / (m_fCount * 2) != (index - (m_fCount * 2)*hCount) / (m_fCount * 2))
+				continue;
+			if (start + j >= m_nTotalFaceCnt)
+				break;
+			D3DXVECTOR3 tmp = m_Vertecs[m_pDataIB[start + j]._0].vPos - point;
+			float len=D3DXVec3LengthSq(&tmp);
+			if (len < size*size) {
+				pos.insert(&m_Vertecs[m_pDataIB[start + j]._0].vPos);
+			}
+			tmp = m_Vertecs[m_pDataIB[start + j]._1].vPos - point;
+			len = D3DXVec3LengthSq(&tmp);
+			if (len < size*size) {
+				pos.insert(&m_Vertecs[m_pDataIB[start + j]._1].vPos);
+			}
+			tmp = m_Vertecs[m_pDataIB[start + j]._2].vPos - point;
+			len = D3DXVec3LengthSq(&tmp);
+			if (len < size*size) {
+				pos.insert(&m_Vertecs[m_pDataIB[start + j]._2].vPos);
+			}
+			/*
+			pos.insert(&m_Vertecs[m_pDataIB[start + j]._0].vPos);
+			pos.insert(&m_Vertecs[m_pDataIB[start + j]._1].vPos);
+			pos.insert(&m_Vertecs[m_pDataIB[start + j]._2].vPos);
+			*/
+		}
+		start += (m_fCount * 2);
+		hCount--;
+	}
+	for (auto& i : pos) {
+		i->y++;
+	}
+
+	((VertexTransform*)m_Transform)->Modifiy(m_Vertecs, sizeof(D3DFVF_XYZ_NORMAL_UV)*m_nTotalVertexCount);
+}
+
+void Terrain::UpHill(int index, int size, int height, D3DXVECTOR3 point)
+{
+	map<D3DXVECTOR3*,float> pos;
+	int yy = size;
+	int hCount = yy;
+	int start = (index - (m_fCount * 2)*(yy)) - (size * 2 - 2);
+	while (start < 0) {
+		start += (m_fCount * 2);
+		hCount--;
+	}
+	for (int i = 0; i < size * 2; i++) {
+
+		for (int j = 0; j < size * 4; j++) {
+			if ((start + j) / (m_fCount * 2) != (index - (m_fCount * 2)*hCount) / (m_fCount * 2))
+				continue;
+			if (start + j >= m_nTotalFaceCnt)
+				break;
+			D3DXVECTOR3 tmp = m_Vertecs[m_pDataIB[start + j]._0].vPos - point;
+			float len = D3DXVec3LengthSq(&tmp);
+			
+			if (len < size*size) {
+				pos.insert(pair<D3DXVECTOR3*, float>(&m_Vertecs[m_pDataIB[start + j]._0].vPos, (size*size - len) / (size*size)));
+			}
+			tmp = m_Vertecs[m_pDataIB[start + j]._1].vPos - point;
+			len = D3DXVec3LengthSq(&tmp);
+			if (len < size*size) {
+				pos.insert(pair<D3DXVECTOR3*, float>(&m_Vertecs[m_pDataIB[start + j]._1].vPos, (size*size - len) / (size*size)));
+			}
+			tmp = m_Vertecs[m_pDataIB[start + j]._2].vPos - point;
+			len = D3DXVec3LengthSq(&tmp);
+			if (len < size*size) {
+				pos.insert(pair<D3DXVECTOR3*, float>(&m_Vertecs[m_pDataIB[start + j]._2].vPos, (size*size - len) / (size*size)));
+			}
+			/*
+			pos.insert(&m_Vertecs[m_pDataIB[start + j]._0].vPos);
+			pos.insert(&m_Vertecs[m_pDataIB[start + j]._1].vPos);
+			pos.insert(&m_Vertecs[m_pDataIB[start + j]._2].vPos);
+			*/
+		}
+		start += (m_fCount * 2);
+		hCount--;
+	}
+	for (auto& i : pos) {
+		i.first->y+=i.second*height;
+	}
+
+	((VertexTransform*)m_Transform)->Modifiy(m_Vertecs, sizeof(D3DFVF_XYZ_NORMAL_UV)*m_nTotalVertexCount);
 }
 
 Terrain::Terrain()
@@ -284,3 +407,4 @@ Terrain::Terrain()
 Terrain::~Terrain()
 {
 }
+

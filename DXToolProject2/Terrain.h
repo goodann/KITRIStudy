@@ -16,6 +16,8 @@ public:
 	void InitIB(int tileCnt);
 	void Up(int index);
 	void UpRect(int index,int size);
+	void UpCircle(int index, int size,D3DXVECTOR3 point);
+	void UpHill(int index, int size,int height, D3DXVECTOR3 point);
 	Terrain();
 	virtual ~Terrain();
 };

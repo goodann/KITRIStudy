@@ -43,7 +43,8 @@ public:
 	int m_ToolMode;
 	int m_ModelMode;
 	baseObject* m_SelectedObject;
-
+	float m_DebugFloat;
+	int m_DebugInt;
 
 
 public:
